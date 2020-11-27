@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     CustomDialog customDialog;
     private FirebaseAuth auth;
     ProgressBar progressBar;
+    Button b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
