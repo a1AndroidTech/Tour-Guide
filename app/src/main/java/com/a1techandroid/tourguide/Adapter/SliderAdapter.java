@@ -23,9 +23,16 @@ public class SliderAdapter extends
 
     public SliderAdapter(Context context) {
         this.context = context;
-        addItem(context.getResources().getDrawable(R.drawable.bell_icon));
-        addItem(context.getResources().getDrawable(R.drawable.tg_logo));
-        addItem(context.getResources().getDrawable(R.drawable.profile));
+        addItem(context.getResources().getDrawable(R.drawable.s1));
+        addItem(context.getResources().getDrawable(R.drawable.s10));
+        addItem(context.getResources().getDrawable(R.drawable.s9));
+        addItem(context.getResources().getDrawable(R.drawable.s2));
+        addItem(context.getResources().getDrawable(R.drawable.s5));
+        addItem(context.getResources().getDrawable(R.drawable.s8));
+        addItem(context.getResources().getDrawable(R.drawable.s3));
+        addItem(context.getResources().getDrawable(R.drawable.s4));
+        addItem(context.getResources().getDrawable(R.drawable.s6));
+        addItem(context.getResources().getDrawable(R.drawable.s7));
     }
 
     public void renewItems(List<Drawable> sliderItems) {
@@ -66,7 +73,7 @@ public class SliderAdapter extends
     @Override
     public int getCount() {
         //slider view count could be dynamic size
-        return 3    ;
+        return 10    ;
     }
 
     class SliderAdapterVH extends SliderViewAdapter.ViewHolder {

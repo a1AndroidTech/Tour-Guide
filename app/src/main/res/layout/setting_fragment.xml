@@ -6,5 +6,17 @@
     android:background="@color/white"
     >
 
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/listView"
+    />
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/tg_logo"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        />
 </LinearLayout>
