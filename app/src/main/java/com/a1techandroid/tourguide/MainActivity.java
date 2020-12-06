@@ -49,19 +49,19 @@ public class MainActivity extends AppCompatActivity {
         bubbleTabBar.addBubbleListener(new OnBubbleClickListener() {
             @Override
             public void onBubbleClick(int i) {
-                if (i == 2131230906){
+                if (i == 2131230923){
                     HomeFragment homeFragment= new HomeFragment();
                     replaceFragment(homeFragment);
                     title.setText("Home");
-                }else if (i == 2131230724){
+                }else if (i == 2131230726){
                     DealsFragment homeFragment= new DealsFragment();
                     replaceFragment(homeFragment);
                     title.setText("Deals");
-                }else if (i == 2131230726){
+                }else if (i == 2131230728){
                     HistoryFragment homeFragment= new HistoryFragment();
                     replaceFragment(homeFragment);
                     title.setText("History");
-                }else if (i == 2131230734){
+                }else if (i == 2131230738){
                     SettingFragment homeFragment= new SettingFragment();
                     replaceFragment(homeFragment);
                     title.setText("Setting");

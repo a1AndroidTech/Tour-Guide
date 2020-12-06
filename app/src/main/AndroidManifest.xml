@@ -22,6 +22,10 @@
         <activity android:name=".SignUpActivity"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".PWresetActivity"/>
+        <activity android:name=".UpdateProfile"/>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
     </application>
 
 </manifest>

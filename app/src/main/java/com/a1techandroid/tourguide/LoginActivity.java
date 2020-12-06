@@ -2,6 +2,7 @@ package com.a1techandroid.tourguide;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -44,10 +45,13 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     ProgressBar progressBar;
     Button b;
+    private ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mProgressDialog = new ProgressDialog(this);
         auth = FirebaseAuth.getInstance();
         initViews();
         setUpClicks();
@@ -123,7 +127,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginUSer(String email, String password){
-        progressBar.setVisibility(View.VISIBLE);
+        mProgressDialog.setTitle("Login Account...");
+        mProgressDialog.show();
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -135,6 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                             // there was an error
                             Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                         } else {
+                            mProgressDialog.hide();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();

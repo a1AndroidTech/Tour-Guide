@@ -26,6 +26,7 @@ import com.a1techandroid.tourguide.Fragments.AboutAppfragment;
 import com.a1techandroid.tourguide.LoginActivity;
 import com.a1techandroid.tourguide.MainActivity;
 import com.a1techandroid.tourguide.R;
+import com.a1techandroid.tourguide.UpdateProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -82,7 +83,7 @@ public class SettingListAdapter  extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (position == 0){
-
+                    v.getContext().startActivity(new Intent(v.getContext(), UpdateProfile.class));
                 }else if (position == 1){
                     resetPasswordDialog();
                 }else if (position == 2){

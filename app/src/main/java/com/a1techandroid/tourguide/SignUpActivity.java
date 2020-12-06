@@ -1,5 +1,6 @@
 package com.a1techandroid.tourguide;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -13,11 +14,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.a1techandroid.tourguide.CustomClasses.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText name, email, phone, password;
@@ -27,11 +31,18 @@ public class SignUpActivity extends AppCompatActivity {
     TextInputLayout nameError, emailError, phoneError, passError;
     ProgressBar progressBar;
     private FirebaseAuth auth;
+    private ProgressDialog mProgressDialog;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mRefe;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         auth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
+        mRefe = mDatabase.getReference("Users");
+        mProgressDialog = new ProgressDialog(this);
         initViews();
         setUpClicks();
     }
@@ -119,19 +130,38 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void createUserOnServer(String email, String password){
-        progressBar.setVisibility(View.VISIBLE);
+        UserModel userModel = new UserModel(name.getText().toString(), email, phone.getText().toString(),"","" );
+        mProgressDialog.setTitle("Creating Account...");
+        mProgressDialog.show();
+//        progressBar.setVisibility(View.VISIBLE);
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Toast.makeText(SignUpActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                         if (!task.isSuccessful()) {
                             Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
                                     Toast.LENGTH_SHORT).show();
+                            mProgressDialog.hide();
+
                         } else {
-                            progressBar.setVisibility(View.GONE);
-                            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                            finish();
+                            mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(SignUpActivity.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                                        mProgressDialog.hide();
+                                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                        finish();
+                                        mProgressDialog.hide();
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                        mProgressDialog.hide();
+                                    }
+                                }
+                            });
+
                         }
                     }
                 });
