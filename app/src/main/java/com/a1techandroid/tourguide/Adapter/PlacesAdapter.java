@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentManager;
@@ -48,6 +49,7 @@ public class PlacesAdapter extends BaseAdapter {
 
     class ViewHolder{
         TextView name, loc;
+        ImageView marker;
     }
 
     @Override
@@ -59,6 +61,7 @@ public class PlacesAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.name = convertView.findViewById(R.id.name);
             holder.loc = convertView.findViewById(R.id.loc);
+            holder.marker = convertView.findViewById(R.id.marker);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
@@ -68,7 +71,33 @@ public class PlacesAdapter extends BaseAdapter {
         holder.name.setText(name.getName());
         holder.loc.setText(name.getLoc());
 
+        holder.marker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri location = Uri.parse(String.valueOf(R.string.mq_mountain_whitewater));
+                showMap(location);
+            }
+        });
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return convertView;
+    }
+
+    public void showMap(Uri geoLocation) {
+        // Initialize the map intent with an action and the geolocation parameter
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW);
+
+        // Make the intent explicit by setting Google Maps package
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        // Attempt to start an activity that can handle the Intent w/o crashing the app
+        if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(mapIntent);
+        }
     }
 }

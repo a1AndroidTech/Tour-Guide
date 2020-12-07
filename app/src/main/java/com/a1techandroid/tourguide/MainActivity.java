@@ -48,10 +48,25 @@ public class MainActivity extends AppCompatActivity {
     }
     public void setUpBubleTabBar(){
 
+//        bubbleTabBar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (v.getId() == R.id.home){
+//
+//                }else if (v.getId() == R.id.Discount){
+//
+//                }else if (v.getId() == R.id.History){
+//
+//                }else if (v.getId() == R.id.Discount){
+//
+//                }
+//            }
+//        });
+
         bubbleTabBar.addBubbleListener(new OnBubbleClickListener() {
             @Override
             public void onBubbleClick(int i) {
-                if (i == 2131230935){
+                if (i == 2131230942){
                     HomeFragment homeFragment= new HomeFragment();
                     replaceFragment(homeFragment);
                     title.setText("Home");

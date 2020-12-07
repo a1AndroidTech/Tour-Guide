@@ -67,6 +67,7 @@
                 android:layout_height="20dp"
                 android:src="@drawable/placeholder"
                 android:layout_marginTop="5dp"
+                android:id="@+id/marker"
                 />
         </LinearLayout>
         </LinearLayout>

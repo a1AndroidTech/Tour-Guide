@@ -35,12 +35,23 @@ public class DealsFragment extends Fragment {
     public void initView(View view){
         listView=view.findViewById(R.id.listView);
         listofItems= new ArrayList<>();
-        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s7), "Notre Dame Cathedral", "6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004"));
-        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s1), "Louvre Museum", "Rue de Rivoli, 75001"));
-        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s6), "Champs Elysées/Arc of Triumph", "Place Charles de Gaulle, 75008"));
-        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s3), "Cruise on the Seine ", "75001 Paris, France"));
-        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s8), "Montmartre", "75018 Paris, France"));
-        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Palace of Versailles", "Place d\\'Armes, 78000 Versailles"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s7), "Gilgit / Chitral", "GB Province, Pakistan"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s1), "Murree", "Tehsil Rawalpindi, Punjab"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s6), "Swat", "KPK Province, Pakistan"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s3), "Malam Jabba"
+                , "KPK Province, Pakistan"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s8), "Faisal Mosque", "Islamabad Capital of Pakistan"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Lahore Fort  ", "Lahore City, Punjab, Pakistan"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Badshahi Mosque  ", "Lahore City, Punjab, Pakistan"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Sheesh Mahal  ", "Lahore City, Punjab, Pakistan"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Damn e Koh  ", "Islamabad , Pakistan"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Shalimar bagh  ", "Lahore City, Punjab, Pakistan"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Minar e Pakistan  ", "Lahore City, Punjab, Pakistan"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Pakistan Monument  ", "Islamabad, Pakistan"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Saif ul Maluk Lake  ", "Naran Kaghan , KPK"));
+        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Naran Kaghan  ", " KPK"));
+//        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Saif ul Maluk Lake  ", "Naran Kaghan , KPK"));
+//        listofItems.add(new Places(getActivity().getDrawable(R.drawable.s10), "Saif ul Maluk Lake  ", "Naran Kaghan , KPK"));
 
         settingListAdapter = new PlacesAdapter(getActivity(), listofItems);
         listView.setAdapter(settingListAdapter);

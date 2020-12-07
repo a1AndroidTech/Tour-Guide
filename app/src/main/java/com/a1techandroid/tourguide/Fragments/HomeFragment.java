@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
         Airport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmetnTicketing homeFragment= new FragmetnTicketing();
+                FragmentAirPlane homeFragment= new FragmentAirPlane();
                 replaceFragment(homeFragment);
                 MainActivity.title.setText("Ticketing");
             }

@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog = new ProgressDialog(LoginActivity.this);
         auth = FirebaseAuth.getInstance();
         initViews();
         setUpClicks();
