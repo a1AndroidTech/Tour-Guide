@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@drawable/gradient">
 
     <TextView
         android:layout_width="match_parent"
@@ -20,18 +20,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="thisis si sfdfdlkfldfdkfdfdljfldjfdf
-        dfdfdfdfdfdfdfdffdfdfdf
-thisis si sfdfdlkfldfdkfdfdljfldjfdf
-dfdfdfdfdfdfdfdffdfdfdfthisis si sfdfdlkfldfdkfdfdljfldjfdf
-dfdfdfdfdfdfdfdffdfdfdfthisis si sfdfdlkfldfdkfdfdljfldjfdf
-dfdfdfdfdfdfdfdffdfdfdfthisis si sfdfdlkfldfdkfdfdljfldjfdf
-dfdfdfdfdfdfdfdffdfdfdfthisis si sfdfdlkfldfdkfdfdljfldjfdf
-dfdfdfdfdfdfdfdffdfdfdfthisis si sfdfdlkfldfdkfdfdljfldjfdf
-dfdfdfdfdfdfdfdffdfdfdfthisis si sfdfdlkfldfdkfdfdljfldjfdf
-dfdfdfdfdfdfdfdffdfdfdfthisis si sfdfdlkfldfdkfdfdljfldjfdf
-dfdfdfdfdfdfdfdffdfdfdfthisis si sfdfdlkfldfdkfdfdljfldjfdf
-dfdfdfdfdfdfdfdffdfdfdf"
+        android:text="For tourist industry every country do many project especially in europe. They will provide many service for tourist on tourist points. That works done by their local government thats why tourist industry doing good work. unfortunately in our not any sops for tourist and nor any service on tourist points. Thats why many people not like to visit some tourist point because they have no idea about that place such as service hoteling etc. For this we deigned this android app to help tourist and solve problems. unfortunately some other applications are available about tourism but either they do not work properly or do not provide enough information to the users about tourism in Pakistan. That is why we are going to develop an android application and the main aim of this application will be to provide guidance to the users about different tourist points in Pakistan. And this application will also promote tourism in Pakistan on international level. We will provide enough information and guidance about different tourist points in Pakistan which will not only benefit local tourists but also international tourists, travelers and vloggers etc."
         android:textColor="@color/black"
         android:textSize="20sp"
         android:layout_margin="10dp"

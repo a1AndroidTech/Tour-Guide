@@ -63,4 +63,7 @@ dependencies {
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
 
+    //rec
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation 'com.google.code.gson:gson:2.8.4'
 }

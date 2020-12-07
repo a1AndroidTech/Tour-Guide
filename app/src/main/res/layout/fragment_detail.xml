@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Full resolution image of the attraction in an ImageView -->
+    <ImageView
+        android:id="@+id/detail_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:layout_weight="2"
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/sample" />
+
+    <!-- Detailed description of the attraction in a TextView -->
+    <TextView
+        android:id="@+id/detail_long_desc_tv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="fill"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:layout_weight="1"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/detailed_text"
+        android:typeface="serif"
+        tools:text="Detailed Description about the attraction in a card" />
+
+    <!-- Button to show the attraction on a Map -->
+    <Button
+        android:id="@+id/detail_show_in_map_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/vertical_margin"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:text="@string/show_map" />
+
+</LinearLayout>

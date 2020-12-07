@@ -118,7 +118,7 @@ public class SettingListAdapter  extends BaseAdapter {
 
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setContentView(R.layout.forget_password_dialog);
 
         final EditText editText = (EditText) dialog.findViewById(R.id.email);

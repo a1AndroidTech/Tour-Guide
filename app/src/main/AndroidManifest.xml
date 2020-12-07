@@ -23,9 +23,20 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".PWresetActivity"/>
         <activity android:name=".UpdateProfile"/>
+
+        <activity android:name=".GiftActivity"/>
+        <activity android:name=".CarRentalActivity"/>
+        <activity android:name=".PlaneDetailActivity"/>
+        <activity android:name=".HotelDetail"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+
+        <activity
+            android:name=".Extra.AttractionListActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".Extra.AttractionActivity" />
+        <activity android:name=".Extra.AttractionPagerActivity" />
     </application>
 
 </manifest>

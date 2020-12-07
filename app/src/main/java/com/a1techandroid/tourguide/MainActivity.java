@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     BubbleTabBar bubbleTabBar;
-    TextView title;
+    public static TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +47,11 @@ public class MainActivity extends AppCompatActivity {
         title= findViewById(R.id.title);
     }
     public void setUpBubleTabBar(){
+
         bubbleTabBar.addBubbleListener(new OnBubbleClickListener() {
             @Override
             public void onBubbleClick(int i) {
-                if (i == 2131230923){
+                if (i == 2131230935){
                     HomeFragment homeFragment= new HomeFragment();
                     replaceFragment(homeFragment);
                     title.setText("Home");
