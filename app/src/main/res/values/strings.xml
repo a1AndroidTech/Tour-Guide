@@ -67,6 +67,8 @@
     <string name="sample_detailed_description">Detailed description of the attraction</string>
     <string name="show_map">show in map</string>
 
+
+
     <string name="city_park_detailed_desc">
         City Park Pool is located in City Park.
         Enjoy the park surroundings and Sheldon Lake for fishing and an outdoor pool.
@@ -242,5 +244,22 @@
     <string name="mq_social">geo:0,0?q=Social+Fort+Collins</string>
     <string name="mq_star_of_india">geo:0,0?q=Star+of+India+Fort+Collins</string>
 
+
+    // drawer
+    <string name="navigation_drawer_destination">Destinations</string>
+    <string name="navigation_drawer_travel">Travel</string>
+    <string name="navigation_drawer_utilities">Utilities</string>
+    <string name="navigation_drawer_about_us">About Us</string>
+    <string name="navigation_drawer_signout">Sign Out</string>
+    <string name="navigation_drawer_my_friends">My Friends</string>
+    <string name="navigation_drawer_settings">Settings</string>
+
+
+    // nav
+    <string name="navigation_drawer_open">Travel Guide</string>
+    <string name="navigation_drawer_close">Travel Guide</string>
+
+    <string name="signout_message">Are you sure want to sign out?</string>
+    <string name="positive_button">OK</string>
 
 </resources>

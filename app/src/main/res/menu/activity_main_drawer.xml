@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="Bookings">
+        <menu>
+    <group android:checkableBehavior="single" android:id="@+id/nav_grp1">
+        <item
+            android:id="@+id/nav_city"
+            android:icon="@drawable/ic_location_city_black"
+            android:title="Hotels" />
+        <item
+            android:id="@+id/nav_travel"
+            android:icon="@drawable/ic_directions_car_black"
+            android:title="Rents" />
+        <item
+            android:id="@+id/nav_mytrips"
+            android:icon="@drawable/mytrips"
+            android:title="Air Ticket" />
+
+
+    </group>
+
+        </menu>
+    </item>
+
+    <item android:title="Gate Way">
+        <menu>
+    <group android:checkableBehavior="single" android:id="@+id/nav_grp2">
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_about_us"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/ic_location_city_black"
+            android:title="City" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="About"/>
+
+        <item
+            android:id="@+id/nav_myfriends"
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_utility"
+            android:icon="@drawable/ic_utilities"
+            android:title="Map" />
+
+        <item
+            android:id="@+id/signout"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="Sign out" />
+    </group>
+
+        </menu>
+    </item>
+
+<!--    <item-->
+<!--        android:id="@+id/nav_signout"-->
+<!--        android:icon="@drawable/ic_person_black_24dp"-->
+<!--        android:title="@string/navigation_drawer_signout" />-->
+<!--    <item-->
+<!--        android:id="@+id/nav_settings"-->
+<!--        android:icon="@drawable/ic_settings_black_24dp"-->
+<!--        android:title="@string/navigation_drawer_settings"/>-->
+
+<!--    <item-->
+<!--        android:id="@+id/nav_myfriends"-->
+<!--        android:icon="@drawable/ic_people_black_24dp"-->
+<!--        android:title="@string/navigation_drawer_my_friends" />-->
+<!--    <item-->
+<!--        android:id="@+id/nav_utility"-->
+<!--        android:icon="@drawable/ic_utilities"-->
+<!--        android:title="@string/navigation_drawer_utilities" />-->
+
+</menu>

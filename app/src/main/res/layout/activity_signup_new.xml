@@ -11,14 +11,14 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        >
 
         <ImageView
 
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:alpha="0.2"
-            android:background="@drawable/city"
+            android:alpha="0.6"
+            android:background="@drawable/city_3"
             android:padding="10dp"
             android:scaleType="centerCrop" />
 
@@ -40,8 +40,8 @@
 
             <ImageView
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/tg_logo" />
@@ -130,28 +130,13 @@
                         android:id="@+id/input_firstname_signup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="First Name"
+                        android:hint=" Name"
                         android:inputType="text"
                         android:singleLine="true"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/white">
-
-                    <EditText
-                        android:id="@+id/input_lastname_signup"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Last Name"
-                        android:inputType="text"
-                        android:singleLine="true"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -170,6 +155,21 @@
                         android:textColorHint="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/white">
+
+                    <EditText
+                        android:id="@+id/input_lastname_signup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Phone"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -211,7 +211,7 @@
 
 
                 <Button
-                    android:id="@+id/ok_signup"
+                    android:id="@+id/register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

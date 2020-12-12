@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         setUpBubleTabBar();
 
+        HomeFragment homeFragment= new HomeFragment();
+        replaceFragment(homeFragment);
+        title.setText("Home");
+
     }
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -62,29 +62,30 @@ public class PWresetActivity extends AppCompatActivity {
 
     private void initializeGUI(){
 
-        email = (EditText) findViewById(R.id.email);
-        emailError = (TextInputLayout) findViewById(R.id.emailError);
-        btnReset = findViewById(R.id.btnReset);
+        email = (EditText) findViewById(R.id.input_email_login);
+//        emailError = (TextInputLayout) findViewById(R.id.emailError);
+        btnReset = findViewById(R.id.ok_login);
         BackToSignIn= findViewById(R.id.login);
-        progressBar=findViewById(R.id.progressBar);
+//        progressBar=findViewById(R.id.progressBar);
 
 //        firebaseAuth = FirebaseAuth.getInstance();
 
     }
 
     public void resetPassword(String email){
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
         auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(PWresetActivity.this, "We have sent you instructions on your email to reset your password!", Toast.LENGTH_SHORT).show();
+                            finish();
                         } else {
                             Toast.makeText(PWresetActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                         }
 
-                        progressBar.setVisibility(View.GONE);
+//                        progressBar.setVisibility(View.GONE);
                     }
                 });
     }

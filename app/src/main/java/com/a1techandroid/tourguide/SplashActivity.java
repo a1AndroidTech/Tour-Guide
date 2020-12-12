@@ -25,12 +25,12 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), AdminActivity.class));
                         finish();
                     }else {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MainNewActivity.class));
                         finish();
                     }
 
                 }else {
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    startActivity(new Intent(getApplicationContext(), LoginActivityNew.class));
                     finish();
                 }
 

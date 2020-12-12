@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.a1techandroid.tourguide.Models.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class SignUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class SignUpNewActivity extends AppCompatActivity {
+
     EditText name, email, phone, password, confirmPassword;
     Button register;
     TextView login;
@@ -40,7 +40,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRefe;
     Spinner spinner1;
-     String text, Text;
+    String text, Text;
     ArrayList<String> items22 = new ArrayList<>();
 
 
@@ -54,14 +54,6 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         mProgressDialog = new ProgressDialog(this);
         initViews();
         setUpClicks();
-
-        items22.add("User");
-        items22.add("Hotel");
-        items22.add("Ticket Agency");
-        items22.add("Train");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items22);
-        spinner1.setAdapter(adapter);
     }
 
     public void initViews(){
@@ -72,13 +64,11 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         password = (EditText) findViewById(R.id.input_pass_signup);
         login = (TextView) findViewById(R.id.login);
         register = (Button) findViewById(R.id.register);
-        nameError = (TextInputLayout) findViewById(R.id.nameError);
-        emailError = (TextInputLayout) findViewById(R.id.emailError);
-        phoneError = (TextInputLayout) findViewById(R.id.phoneError);
-        passError = (TextInputLayout) findViewById(R.id.passError);
-        progressBar= findViewById(R.id.progressBar);
-        spinner1=findViewById(R.id.spinner1);
-        spinner1.setOnItemSelectedListener(this);
+//        nameError = (TextInputLayout) findViewById(R.id.nameError);
+//        emailError = (TextInputLayout) findViewById(R.id.emailError);
+//        phoneError = (TextInputLayout) findViewById(R.id.phoneError);
+//        passError = (TextInputLayout) findViewById(R.id.passError);
+//        progressBar= findViewById(R.id.progressBar);
 
     }
 
@@ -94,7 +84,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                 // redirect to LoginActivity
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivityNew.class);
                 startActivity(intent);
             }
         });
@@ -103,44 +93,74 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     public void SetValidation() {
         // Check for a valid name.
         if (name.getText().toString().isEmpty()) {
-            nameError.setError(getResources().getString(R.string.name_error));
             isNameValid = false;
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(android.R.id.content),
+                            "Name is Empty", Snackbar.LENGTH_LONG);
+            snackbar.show();
         } else  {
             isNameValid = true;
-            nameError.setErrorEnabled(false);
         }
 
         // Check for a valid email address.
         if (email.getText().toString().isEmpty()) {
-            emailError.setError(getResources().getString(R.string.email_error));
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(android.R.id.content),
+                            "Email is Empty", Snackbar.LENGTH_LONG);
+            snackbar.show();
             isEmailValid = false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
-            emailError.setError(getResources().getString(R.string.error_invalid_email));
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(android.R.id.content),
+                            "Enter Valid Email", Snackbar.LENGTH_LONG);
+            snackbar.show();
             isEmailValid = false;
         } else  {
             isEmailValid = true;
-            emailError.setErrorEnabled(false);
         }
 
         // Check for a valid phone number.
         if (phone.getText().toString().isEmpty()) {
-            phoneError.setError(getResources().getString(R.string.phone_error));
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(android.R.id.content),
+                            "Phone is Empty", Snackbar.LENGTH_LONG);
+            snackbar.show();
             isPhoneValid = false;
         } else  {
             isPhoneValid = true;
-            phoneError.setErrorEnabled(false);
         }
 
         // Check for a valid password.
         if (password.getText().toString().isEmpty()) {
-            passError.setError(getResources().getString(R.string.password_error));
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(android.R.id.content),
+                            "Password is Empty", Snackbar.LENGTH_LONG);
+            snackbar.show();
             isPasswordValid = false;
         } else if (password.getText().length() < 6) {
-            passError.setError(getResources().getString(R.string.error_invalid_password));
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(android.R.id.content),
+                            "Enter Minimum 6 digits", Snackbar.LENGTH_LONG);
+            snackbar.show();
             isPasswordValid = false;
         } else  {
             isPasswordValid = true;
-            passError.setErrorEnabled(false);
+        }
+
+        if (confirmPassword.getText().toString().isEmpty()) {
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(android.R.id.content),
+                            "Confirm Password is Empty", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            isPasswordValid = false;
+        } else if (confirmPassword.getText().length() < 6) {
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(android.R.id.content),
+                            "Enter Minimum 6 digits", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            isPasswordValid = false;
+        } else  {
+            isPasswordValid = true;
         }
 
         if (isNameValid && isEmailValid && isPhoneValid && isPasswordValid) {
@@ -156,11 +176,12 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         mProgressDialog.show();
 //        progressBar.setVisibility(View.VISIBLE);
         auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(SignUpNewActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-                            Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
+                            Toast.makeText(SignUpNewActivity
+                                            .this, "Authentication failed." + task.getException(),
                                     Toast.LENGTH_SHORT).show();
                             mProgressDialog.hide();
 
@@ -171,13 +192,16 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(SignUpActivity.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignUpNewActivity
+                                                .this, "Updated Successfully", Toast.LENGTH_SHORT).show();
                                         mProgressDialog.hide();
-                                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                        startActivity(new Intent(SignUpNewActivity
+                                                .this, MainNewActivity.class));
                                         finish();
                                         mProgressDialog.hide();
                                     } else {
-                                        Toast.makeText(SignUpActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignUpNewActivity
+                                                .this, "Something went wrong", Toast.LENGTH_SHORT).show();
                                         mProgressDialog.hide();
                                     }
                                 }
@@ -188,27 +212,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                 });
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        text = parent.getItemAtPosition(position).toString();
-         Text = String.valueOf(spinner1.getSelectedItem());
 
-         if (position == 0){
-             Text = "User";
-         }else if (position == 1){
-             Text = "Hotel";
-
-         }else if (position == 2){
-             Text = "Ticket Agency";
-
-         }else if (position ==3){
-             Text = "Train";
-
-         }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }
+
+

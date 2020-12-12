@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,29 +15,33 @@
         android:orientation="vertical"
         android:layout_marginTop="5dp"
         android:background="@drawable/horsetooth_reservoir"
+        android:visibility="gone"
         >
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_marginLeft="60dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             >
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/circle_ackground"
                 android:layout_marginRight="10dp"
+                android:layout_gravity="center_vertical"
                 >
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/paln"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/airplanes"
             android:layout_margin="10dp"
             android:layout_gravity="center"
             android:id="@+id/plane"
             android:layout_marginLeft="50dp"
             android:layout_centerInParent="true"
+
             />
 
             </RelativeLayout>
@@ -44,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/circle_ackground"
                 android:layout_marginRight="10dp"
+                android:visibility="gone"
 
                 >
         <ImageView
@@ -61,11 +69,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/circle_ackground"
+                android:layout_gravity="center_vertical"
                 >
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:src="@drawable/hotel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/appartment"
             android:layout_margin="10dp"
             android:layout_gravity="center_vertical"
             android:id="@+id/hotel"
@@ -83,6 +92,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
+        android:visibility="gone"
+
         >
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -181,6 +192,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:elevation="15dp"
+        android:visibility="gone"
+
         >
 
         <com.smarteist.autoimageslider.SliderView

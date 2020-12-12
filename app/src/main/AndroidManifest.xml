@@ -39,6 +39,10 @@
         <activity android:name=".Extra.AttractionActivity" />
         <activity android:name=".Extra.AttractionPagerActivity" />
         <activity android:name=".AdminActivity"/>
+
+        <activity android:name=".LoginActivityNew"/>
+        <activity android:name=".SignUpNewActivity"/>
+        <activity android:name=".MainNewActivity"/>
     </application>
 
 </manifest>
