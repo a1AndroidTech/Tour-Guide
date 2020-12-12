@@ -4,6 +4,10 @@ public class HotelModel {
     String arrival, destination, eco;
     int rating;
 
+    public HotelModel(){
+
+    }
+
     public HotelModel(String arrival, String destination, String eco, int rating) {
         this.arrival = arrival;
         this.destination = destination;

@@ -70,6 +70,22 @@
                         android:paddingLeft="5dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    android:layout_centerInParent="true"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent" android:layout_height="50dp" tools:ignore="UselessParent">
+
+
+                    <Spinner
+                        android:id="@+id/spinner1"
+                        android:layout_width="match_parent"
+                        android:backgroundTint="@color/gray_color"
+                        android:layout_height="match_parent"
+                        android:spinnerMode="dropdown"
+
+                        />
+
+                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/passError"

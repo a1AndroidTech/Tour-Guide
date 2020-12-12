@@ -67,8 +67,8 @@ public class GiftAdapter extends BaseAdapter {
         final GiftModel name = list.get(position);
 
 
-        holder.arrival.setText(name.getArrival());
-        holder.destination.setText(name.getEco());
+        holder.arrival.setText(name.getEco());
+        holder.destination.setText(name.getArrival());
         holder.economy.setText(name.getArrival());
 
         holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bell_icon));

@@ -10,12 +10,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:textSize="25dp"
-        android:text="Hoteling"
-        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:text="Train Detail"
+        android:textColor="#923030"
         android:layout_gravity="center"
-        android:textAlignment="center"
-        android:textStyle="bold"
         android:gravity="center"
         />
 
@@ -27,18 +25,19 @@
         android:layout_marginBottom="10dp"
         >
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hotel:"
-            android:textSize="24dp"
+            android:layout_weight="1"
+            android:text="From/To:"
+            android:textSize="20dp"
             android:textStyle="bold"
-            android:textColor="@color/gray_color"
+            android:textColor="@color/black"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Departure"
+            android:text="Hotel"
             android:id="@+id/departure"
             android:textSize="20dp"
             android:textColor="@color/black"
@@ -53,15 +52,15 @@
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-
         >
         <TextView
-            android:layout_width="110dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location:"
-            android:textSize="24dp"
+            android:layout_weight="1"
+            android:text="Train:"
+            android:textSize="20dp"
             android:textStyle="bold"
-            android:textColor="@color/gray_color"
+            android:textColor="#923030"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -76,62 +75,8 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Class:"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            android:textColor="@color/gray_color"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Economy Class"
-            android:id="@+id/econmy"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            />
-
-    </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:visibility="gone"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Business Class"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="#923030"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Departure"
-            android:id="@+id/business"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            />
-
-    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -145,7 +90,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Book Now"
+            android:text="Book"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:layout_gravity="center"

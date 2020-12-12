@@ -12,7 +12,7 @@
         android:elevation="16dp"
         app:cardCornerRadius="16dp"
         android:layout_margin="10dp"
-        android:backgroundTint="#923030"
+        android:backgroundTint="@color/gray_color"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,17 +37,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="From"
+                        android:text="From:"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="18sp"
+                        android:textStyle="bold"                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="From"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:id="@+id/dep"
                         android:layout_marginLeft="20dp"
                         />
@@ -64,17 +64,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="To"
+                        android:text="To:"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="18sp"
+                        android:textStyle="bold"                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Departure"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:id="@+id/arrival"
                         android:layout_marginLeft="20dp"
                         />
@@ -98,17 +98,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Economy"
+                        android:text="Economy:"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="18sp"
+                        android:textStyle="bold"                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Departure"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:id="@+id/premium"
                         android:layout_marginLeft="20dp"
                         />
@@ -125,10 +125,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Business Class"
+                        android:text="Business Class:"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="18sp"
+                        android:textStyle="bold"                        />
 
                     <TextView
                         android:layout_width="wrap_content"

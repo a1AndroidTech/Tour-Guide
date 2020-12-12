@@ -64,8 +64,8 @@ public class HotelingAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final HotelModel name = list.get(position);
-        holder.arrival.setText(name.getArrival());
-        holder.destination.setText(name.getDestination());
+        holder.arrival.setText(name.getDestination());
+        holder.destination.setText(name.getArrival());
         holder.economy.setText(name.getEco());
         holder.ratingBar.setRating(name.getRating());
 

@@ -13,9 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +36,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     EditText email, password;
     Button login;
     TextView register, ForgotPassword;
@@ -46,6 +50,9 @@ public class LoginActivity extends AppCompatActivity {
     ProgressBar progressBar;
     Button b;
     private ProgressDialog mProgressDialog;
+    Spinner spinner1;
+    String text, Text;
+    ArrayList<String> items22 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,14 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         initViews();
         setUpClicks();
+
+        items22.add("User");
+        items22.add("Hotel");
+        items22.add("Ticket Agency");
+        items22.add("Train");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items22);
+        spinner1.setAdapter(adapter);
     }
 
     public void initViews(){
@@ -66,6 +81,8 @@ public class LoginActivity extends AppCompatActivity {
         passError = (TextInputLayout) findViewById(R.id.passError);
         ForgotPassword= findViewById(R.id.forgetPassword);
         progressBar=findViewById(R.id.progressBar);
+        spinner1=findViewById(R.id.spinner1);
+        spinner1.setOnItemSelectedListener(this);
     }
 
     public void setUpClicks(){
@@ -141,16 +158,29 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                         } else {
                             mProgressDialog.hide();
+                            if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("admin@gmail.com")){
+                                Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
-                        }
+                        }}
                         progressBar.setVisibility(View.GONE);
                     }
                 });
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        text = parent.getItemAtPosition(position).toString();
+        Text = String.valueOf(spinner1.getSelectedItem());
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
+    }
 }

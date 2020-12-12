@@ -5,16 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.a1techandroid.tourguide.CustomClasses.UserModel;
+import com.a1techandroid.tourguide.Models.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -23,7 +26,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SignUpActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class SignUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     EditText name, email, phone, password;
     Button register;
     TextView login;
@@ -34,6 +39,10 @@ public class SignUpActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRefe;
+    Spinner spinner1;
+     String text, Text;
+    ArrayList<String> items22 = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +54,14 @@ public class SignUpActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         initViews();
         setUpClicks();
+
+        items22.add("User");
+        items22.add("Hotel");
+        items22.add("Ticket Agency");
+        items22.add("Train");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items22);
+        spinner1.setAdapter(adapter);
     }
 
     public void initViews(){
@@ -59,6 +76,9 @@ public class SignUpActivity extends AppCompatActivity {
         phoneError = (TextInputLayout) findViewById(R.id.phoneError);
         passError = (TextInputLayout) findViewById(R.id.passError);
         progressBar= findViewById(R.id.progressBar);
+        spinner1=findViewById(R.id.spinner1);
+        spinner1.setOnItemSelectedListener(this);
+
     }
 
     public void setUpClicks(){
@@ -130,7 +150,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void createUserOnServer(String email, String password){
-        UserModel userModel = new UserModel(name.getText().toString(), email, phone.getText().toString(),"","" );
+        com.a1techandroid.tourguide.Models.UserModel userModel = new UserModel("",name.getText().toString(), email, phone.getText().toString(),"","" , Text);
         mProgressDialog.setTitle("Creating Account...");
         mProgressDialog.show();
 //        progressBar.setVisibility(View.VISIBLE);
@@ -165,5 +185,29 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        text = parent.getItemAtPosition(position).toString();
+         Text = String.valueOf(spinner1.getSelectedItem());
+
+         if (position == 0){
+             Text = "User";
+         }else if (position == 1){
+             Text = "Hotel";
+
+         }else if (position == 2){
+             Text = "Ticket Agency";
+
+         }else if (position ==3){
+             Text = "Train";
+
+         }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

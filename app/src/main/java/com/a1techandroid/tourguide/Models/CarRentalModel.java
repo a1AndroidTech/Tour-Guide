@@ -4,6 +4,10 @@ public class CarRentalModel {
 
     String arrival, destination, eco, gold;
 
+    public CarRentalModel(){
+
+    }
+
     public CarRentalModel(String arrival, String destination, String eco, String gold) {
         this.arrival = arrival;
         this.destination = destination;

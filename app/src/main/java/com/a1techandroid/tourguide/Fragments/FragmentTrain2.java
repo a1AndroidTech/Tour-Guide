@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,9 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.a1techandroid.tourguide.Adapter.HotelingAdapter;
-import com.a1techandroid.tourguide.Adapter.PlaneAdapter;
 import com.a1techandroid.tourguide.Models.HotelModel;
-import com.a1techandroid.tourguide.Models.PlaneModel;
 import com.a1techandroid.tourguide.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,29 +22,30 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class FragmentAirPlane extends Fragment {
+public class FragmentTrain2 extends Fragment {
+
     ListView listView;
-    PlaneAdapter planeAdapter;
-    ArrayList<PlaneModel> list = new ArrayList<>();
-    PlaneModel planeModel;
+    HotelingAdapter adapter;
+    ArrayList<HotelModel> list=new ArrayList<>();
     DatabaseReference reference;
     FirebaseDatabase rootNode;
+    HotelModel hotelModel;
     private ProgressDialog mProgressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_airplane, container, false);
-        rootNode= FirebaseDatabase.getInstance();
-        reference=rootNode.getReference("Planes");
+        rootNode=FirebaseDatabase.getInstance();
+        reference=rootNode.getReference("Hotels");
         mProgressDialog= new ProgressDialog(getActivity());
+
+
         initViews(view);
-//        initSEt();
-        readValueFromFireBase();
+        initV();
         return view;
     }
 
@@ -55,22 +53,22 @@ public class FragmentAirPlane extends Fragment {
     public void onResume() {
         super.onResume();
     }
-
     public void initViews(View view){
         listView=view.findViewById(R.id.listView);
     }
+    public void initV(){
+        readValueFromFireBase();
 
-    public void initSEt(){
+//        addUni();
 
-        addUni();
     }
 
     public void addUni(){
         for (int i=0; i<list.size(); i++){
-            planeModel = list.get(i);
+            hotelModel = list.get(i);
             String key = reference.push().getKey();
             reference.child(key)
-                    .setValue(planeModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    .setValue(hotelModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
 
@@ -89,18 +87,17 @@ public class FragmentAirPlane extends Fragment {
     public void readValueFromFireBase(){
         mProgressDialog.setMessage("Fetching Data");
         mProgressDialog.show();
-
-
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                PlaneModel uni_model=snapshot.getValue(PlaneModel.class);
+                HotelModel uni_model=snapshot.getValue(HotelModel.class);
 //                officers.setUid(snapshot.getKey());
                 list.add(uni_model);
-                planeAdapter = new PlaneAdapter(getActivity(), list);
-                listView.setAdapter(planeAdapter);
-                planeAdapter.notifyDataSetChanged();
+                adapter= new HotelingAdapter(getActivity(), list);
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 mProgressDialog.hide();
+
             }
 
             @Override
@@ -111,13 +108,14 @@ public class FragmentAirPlane extends Fragment {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                PlaneModel officers=snapshot.getValue(PlaneModel.class);
+                HotelModel officers=snapshot.getValue(HotelModel.class);
 //                officers.setUid(snapshot.getKey());
                 list.remove(officers);
-                planeAdapter = new PlaneAdapter(getActivity(), list);
-                listView.setAdapter(planeAdapter);
-                planeAdapter.notifyDataSetChanged();
+                adapter= new HotelingAdapter(getActivity(), list);
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 mProgressDialog.hide();
+
             }
 
             @Override
@@ -132,6 +130,5 @@ public class FragmentAirPlane extends Fragment {
         });
 
     }
-
 
 }

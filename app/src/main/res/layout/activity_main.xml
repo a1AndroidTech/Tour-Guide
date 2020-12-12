@@ -34,6 +34,7 @@
             android:layout_toLeftOf="@+id/notificationView"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/title"
+            android:visibility="gone"
             />
 
         <ImageView
@@ -60,7 +61,6 @@
         android:id="@+id/bubbleTabBar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#FFF"
         android:elevation="16dp"
         android:padding="7dp"
         app:bubbletab_menuResource="@menu/list"

@@ -1,16 +1,27 @@
 package com.a1techandroid.tourguide.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.a1techandroid.tourguide.Adapter.HotelingAdapter;
 import com.a1techandroid.tourguide.Models.HotelModel;
 import com.a1techandroid.tourguide.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -18,10 +29,20 @@ public class FragmentHoteling extends Fragment {
     ListView listView;
     HotelingAdapter adapter;
     ArrayList<HotelModel> list=new ArrayList<>();
+    DatabaseReference reference;
+    FirebaseDatabase rootNode;
+    HotelModel hotelModel;
+    private ProgressDialog mProgressDialog;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_airplane, container, false);
+        rootNode=FirebaseDatabase.getInstance();
+        reference=rootNode.getReference("Hotels");
+        mProgressDialog= new ProgressDialog(getActivity());
+
+
         initViews(view);
         initV();
         return view;
@@ -35,26 +56,79 @@ public class FragmentHoteling extends Fragment {
         listView=view.findViewById(R.id.listView);
     }
 public void initV(){
-        list.add(new HotelModel("Hotel One Mall Road Murree"," Jawa Building, GPO Chowk The Mall, 41750 Murree", "5 Star", 4));
-        list.add(new HotelModel("Hotel One Bhurban 3 stars","Hotel in Murree", "3 star", 3));
-        list.add(new HotelModel("The Smart Hotel 3 stars","Murree", "3 Star", 3));
-        list.add(new HotelModel("HOTEL METROPOLE MURREE","Murree", "", 0));
-        list.add(new HotelModel("OASIS MURREE","Murree", "Murree", 0));
-        list.add(new HotelModel("ARCADIAN BLUE PINES RES...PEARL CONTINENTAL HOTEL","Murree", "", 0));
-        list.add(new HotelModel("PEARL CONTINENTAL HOTEL","Murree", "Business Class", 4));
-        list.add(new HotelModel("HOTEL JAWA INTERNATIONA","Shangrila", "Business Class", 5));
-        list.add(new HotelModel("HOTEL MOVE N PICK MURREE","Murree", "Business Class", 5));
-        list.add(new HotelModel("ROYAL INN HOTEL PATRIATA","Patriata Murree", "Business Class", 5));
-        list.add(new HotelModel("HOTEL ONE MURREE","Murree", "Business Class", 5));
-        list.add(new HotelModel("HOTEL FARAN MURREE","Murree", "Business Class", 5));
-        list.add(new HotelModel("FIRHILL IMPERIAL LODGES","Swaat", "Business Class", 5));
-        list.add(new HotelModel("HOTEL FARAN MURREE","Murree", "Business Class", 5));
-        list.add(new HotelModel("BRIGHTLANDS HOTEL ","Swaat", "Business Class", 5));
-        list.add(new HotelModel("BEST VIEW HOTEL","Swaaat", "Business Class", 5));
+    readValueFromFireBase();
 
+//        addUni();
 
-        adapter= new HotelingAdapter(getActivity(), list);
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
 }
+
+    public void addUni(){
+        for (int i=0; i<list.size(); i++){
+            hotelModel = list.get(i);
+            String key = reference.push().getKey();
+            reference.child(key)
+                    .setValue(hotelModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getActivity(), "submitted successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "something went wrong", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+
+    }
+
+    public void readValueFromFireBase(){
+        mProgressDialog.setMessage("Fetching Data");
+        mProgressDialog.show();
+        reference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                HotelModel uni_model=snapshot.getValue(HotelModel.class);
+//                officers.setUid(snapshot.getKey());
+                list.add(uni_model);
+                adapter= new HotelingAdapter(getActivity(), list);
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                mProgressDialog.hide();
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                HotelModel officers=snapshot.getValue(HotelModel.class);
+//                officers.setUid(snapshot.getKey());
+                list.remove(officers);
+                adapter= new HotelingAdapter(getActivity(), list);
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                mProgressDialog.hide();
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
 }

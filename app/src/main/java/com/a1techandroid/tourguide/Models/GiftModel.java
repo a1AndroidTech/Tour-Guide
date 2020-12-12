@@ -6,13 +6,16 @@ import android.widget.ImageView;
 public class GiftModel {
 
     String arrival, destination, eco;
-    Drawable img;
+//    Drawable img;
 
-    public GiftModel(String arrival, String destination, String eco, Drawable img) {
+    public GiftModel(){
+        
+    }
+
+    public GiftModel(String arrival, String destination, String eco) {
         this.arrival = arrival;
         this.destination = destination;
         this.eco = eco;
-        this.img = img;
     }
 
     public String getArrival() {
@@ -39,11 +42,5 @@ public class GiftModel {
         this.eco = eco;
     }
 
-    public Drawable getImg() {
-        return img;
-    }
 
-    public void setImg(Drawable img) {
-        this.img = img;
-    }
 }

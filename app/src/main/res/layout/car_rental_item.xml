@@ -12,7 +12,7 @@
         android:elevation="16dp"
         app:cardCornerRadius="16dp"
         android:layout_margin="10dp"
-        android:backgroundTint="#923030"
+        android:backgroundTint="@color/gray_color"
         >
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,9 +37,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Departure"
+                android:text="Departure:"
+                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 />
 
             <TextView
@@ -64,9 +65,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Arrival"
+                android:text="Arrival:"
                 android:textColor="@color/black"
                 android:textSize="14sp"
+                android:textStyle="bold"
+
                 />
 
             <TextView
@@ -98,7 +101,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Economy"
+                    android:text="Economy:"
+                    android:textStyle="bold"
+
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     />
@@ -125,7 +130,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gold Class"
+                    android:text="Gold Class:"
+                    android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     />

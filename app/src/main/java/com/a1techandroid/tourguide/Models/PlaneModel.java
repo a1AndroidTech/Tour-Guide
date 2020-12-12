@@ -4,6 +4,10 @@ public class PlaneModel {
 
     String arrival, destination, eco, gold;
 
+    public PlaneModel(){
+
+    }
+
     public PlaneModel(String arrival, String destination, String eco, String gold) {
         this.arrival = arrival;
         this.destination = destination;
