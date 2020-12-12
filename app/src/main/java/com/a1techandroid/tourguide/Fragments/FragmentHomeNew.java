@@ -63,7 +63,7 @@ public class FragmentHomeNew extends Fragment implements CardViewOptionsAdapter.
 
         cardEntities.add(
                 new CardItemEntity(
-                        getResources().getDrawable(R.drawable.clture),
+                        getResources().getDrawable(R.drawable.culture2),
                         "Culture"));
         return cardEntities;
     }

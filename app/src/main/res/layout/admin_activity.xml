@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimaryDark"
+        android:background="#0288D1"
         >
 
         <TextView
@@ -59,40 +59,55 @@
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         >
 
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/users"
         android:text="Users"
+        android:layout_weight="1"
+        android:layout_marginRight="5dp"
+        android:background="#0288D1"
         android:textColor="@color/black"
         android:layout_gravity="center_vertical"
         />
 
         <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/history"
         android:text="History"
-        android:textColor="@color/black"
+            android:background="#0288D1"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+
+            android:textColor="@color/black"
         android:layout_gravity="center_vertical"
         />
         <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/Hotels"
         android:text="Hotels"
-        android:textColor="@color/black"
+            android:layout_marginRight="5dp"
+
+            android:background="#0288D1"
+            android:layout_weight="1"
+            android:textColor="@color/black"
         android:layout_gravity="center_vertical"
         />
         <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/Tickets"
         android:text="Tickets"
-        android:textColor="@color/black"
+            android:background="#0288D1"
+            android:layout_weight="1"
+            android:textColor="@color/black"
         android:layout_gravity="center_vertical"
         />
 

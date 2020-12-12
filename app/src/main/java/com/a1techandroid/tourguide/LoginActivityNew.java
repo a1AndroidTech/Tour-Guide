@@ -153,7 +153,6 @@ public class LoginActivityNew extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }}
-                        progressBar.setVisibility(View.GONE);
                     }
                 });
     }
