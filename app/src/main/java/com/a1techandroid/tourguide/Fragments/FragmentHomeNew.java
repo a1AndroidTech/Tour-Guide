@@ -76,20 +76,20 @@ public class FragmentHomeNew extends Fragment implements CardViewOptionsAdapter.
 
                 FragmentHoteling fragment;
                 fragment = new FragmentHoteling();
-                fragmentManager.beginTransaction().replace(R.id.inc, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.inc, fragment).addToBackStack(fragment.getTag()).commit();
 
                 break;
             case 1:
                 FragmentAirPlane fragment1;
                 fragment1 = new FragmentAirPlane();
-                fragmentManager.beginTransaction().add(R.id.inc, fragment1).commit();
+                fragmentManager.beginTransaction().add(R.id.inc, fragment1).addToBackStack(fragment1.getTag()).commit();
 
                 break;
             case 2:
 
                 FragmentCar fragment2;
                 fragment2 = new FragmentCar();
-                fragmentManager.beginTransaction().add(R.id.inc, fragment2).commit();
+                fragmentManager.beginTransaction().add(R.id.inc, fragment2).addToBackStack(fragment2.getTag()).commit();
                 break;
         }
     }

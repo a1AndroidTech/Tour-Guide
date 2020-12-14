@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.a1techandroid.tourguide.CustomClasses.Prefrences;
 import com.a1techandroid.tourguide.Models.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,12 +43,14 @@ public class SignUpNewActivity extends AppCompatActivity {
     Spinner spinner1;
     String text, Text;
     ArrayList<String> items22 = new ArrayList<>();
+    int userType;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_new);
+        userType = getIntent().getIntExtra("userType",0);
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
         mRefe = mDatabase.getReference("Users");
@@ -171,7 +174,7 @@ public class SignUpNewActivity extends AppCompatActivity {
     }
 
     public void createUserOnServer(String email, String password){
-        com.a1techandroid.tourguide.Models.UserModel userModel = new UserModel("",name.getText().toString(), email, phone.getText().toString(),"","" , Text);
+        com.a1techandroid.tourguide.Models.UserModel userModel = new UserModel("",name.getText().toString(), email, phone.getText().toString(),"","pending" , String.valueOf(userType));
         mProgressDialog.setTitle("Creating Account...");
         mProgressDialog.show();
 //        progressBar.setVisibility(View.VISIBLE);
@@ -186,7 +189,7 @@ public class SignUpNewActivity extends AppCompatActivity {
                             mProgressDialog.hide();
 
                         } else {
-                            mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            mRefe.child(userModel.getEmail().replace(".",""))
                                     .setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -197,6 +200,7 @@ public class SignUpNewActivity extends AppCompatActivity {
                                         mProgressDialog.hide();
                                         startActivity(new Intent(SignUpNewActivity
                                                 .this, MainNewActivity.class));
+                                        Prefrences.saveUSer(userModel, getApplicationContext());
                                         finish();
                                         mProgressDialog.hide();
                                     } else {

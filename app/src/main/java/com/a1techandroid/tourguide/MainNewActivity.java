@@ -30,7 +30,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.a1techandroid.tourguide.CustomClasses.Prefrences;
+import com.a1techandroid.tourguide.Fragments.AboutAppfragment;
+import com.a1techandroid.tourguide.Fragments.FragmentAirPlane;
+import com.a1techandroid.tourguide.Fragments.FragmentCar;
 import com.a1techandroid.tourguide.Fragments.FragmentHomeNew;
+import com.a1techandroid.tourguide.Fragments.FragmentHoteling;
+import com.a1techandroid.tourguide.Fragments.FragmentHotler;
+import com.a1techandroid.tourguide.Fragments.FragmentTickter;
+import com.a1techandroid.tourguide.Fragments.HistoryFragment;
+import com.a1techandroid.tourguide.Fragments.SettingFragment;
+import com.a1techandroid.tourguide.Models.UserModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -52,6 +62,7 @@ public class MainNewActivity extends AppCompatActivity implements NavigationView
     DrawerLayout mDrawer;
     ActionBarDrawerToggle toggle;
     NavigationView navigationView;
+    UserModel userModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +71,7 @@ public class MainNewActivity extends AppCompatActivity implements NavigationView
         toolbar = findViewById(R.id.toolbar);
         mDrawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        userModel = Prefrences.getUser(getApplicationContext());
 
         setSupportActionBar(toolbar);
 
@@ -92,10 +104,31 @@ public class MainNewActivity extends AppCompatActivity implements NavigationView
         }
 
         //Initially city fragment
-        FragmentHomeNew fragment;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragment = new FragmentHomeNew();
-        fragmentManager.beginTransaction().replace(R.id.inc, fragment).commit();
+
+        if (userModel.getUserType().equals("1")) {
+            FragmentHomeNew fragment;
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment = new FragmentHomeNew();
+            fragmentManager.beginTransaction().add(R.id.inc, fragment).commit();
+
+        }else if (userModel.getUserType().equals("2")){
+            FragmentHotler fragment;
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment = new FragmentHotler();
+            fragmentManager.beginTransaction().add(R.id.inc, fragment).commit();
+
+        }else if (userModel.getUserType().equals("3")){
+            FragmentCar fragment;
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment = new FragmentCar();
+            fragmentManager.beginTransaction().add(R.id.inc, fragment).commit();
+        }else if (userModel.getUserType().equals("4")){
+            FragmentTickter fragment;
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment = new FragmentTickter();
+            fragmentManager.beginTransaction().add(R.id.inc, fragment).commit();
+        }
+
 
 //        navigationView.getMenu().getItem(0).setChecked(true);
 
@@ -157,16 +190,28 @@ public class MainNewActivity extends AppCompatActivity implements NavigationView
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         switch (id) {
-            case R.id.nav_travel:
+            case R.id.nav_hotel:
 //                fragment = TravelFragment.newInstance();
+                FragmentHoteling fragment1;
+                fragment1 = new FragmentHoteling();
+                fragmentManager.beginTransaction().replace(R.id.inc, fragment1).addToBackStack(fragment1.getTag()).commit();
+
                 break;
 
-            case R.id.nav_mytrips:
+            case R.id.nav_rents:
 //                fragment = MyTripsFragment.newInstance();
+                FragmentCar fragment2;
+                fragment2 = new FragmentCar();
+                fragmentManager.beginTransaction().add(R.id.inc, fragment2).addToBackStack(fragment2.getTag()).commit();
+
                 break;
 
-            case R.id.nav_city:
+            case R.id.nav_tickets:
 //                fragment = CityFragment.newInstance();
+                FragmentAirPlane fragment3;
+                fragment3 = new FragmentAirPlane();
+                fragmentManager.beginTransaction().add(R.id.inc, fragment3).addToBackStack(fragment3.getTag()).commit();
+
                 break;
 
             case R.id.nav_utility:
@@ -177,7 +222,11 @@ public class MainNewActivity extends AppCompatActivity implements NavigationView
 //                fragment = AboutUsFragment.newInstance();
                 break;
 
-            case R.id.nav_signout: {
+            case R.id.nav_history:
+                fragment = HistoryFragment.newInstance();
+                break;
+
+            case R.id.signout: {
 
                 //set AlertDialog before signout
                 ContextThemeWrapper crt = new ContextThemeWrapper(this, R.style.AlertDialog);
@@ -185,11 +234,8 @@ public class MainNewActivity extends AppCompatActivity implements NavigationView
                 builder.setMessage(R.string.signout_message)
                         .setPositiveButton(R.string.positive_button,
                                 (dialog, which) -> {
-                                    mSharedPreferences
-                                            .edit()
-                                            .putString("", null)
-                                            .apply();
-                                    Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+                                    FirebaseAuth.getInstance().signOut();
+                                    Intent i = new Intent(getApplicationContext(),LoginActivityNew.class);
                                     startActivity(i);
                                     finish();
                                 })
@@ -202,10 +248,18 @@ public class MainNewActivity extends AppCompatActivity implements NavigationView
             }
 
             case R.id.nav_myfriends :
+                SettingFragment settingFragment;
+                settingFragment = new SettingFragment();
+                fragmentManager.beginTransaction().add(R.id.inc, settingFragment).addToBackStack(settingFragment.getTag()).commit();
+
 //                fragment = MyFriendsFragment.newInstance();
                 break;
             case R.id.nav_settings :
 //                fragment = SettingsFragment.newInstance();
+                AboutAppfragment aboutAppfragment;
+                aboutAppfragment = new AboutAppfragment();
+                fragmentManager.beginTransaction().add(R.id.inc, aboutAppfragment).addToBackStack(aboutAppfragment.getTag()).commit();
+
                 break;
         }
 

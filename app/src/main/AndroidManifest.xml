@@ -43,6 +43,8 @@
         <activity android:name=".LoginActivityNew"/>
         <activity android:name=".SignUpNewActivity"/>
         <activity android:name=".MainNewActivity"/>
+
+        <activity android:name=".SignupOptionsActivity"/>
     </application>
 
 </manifest>

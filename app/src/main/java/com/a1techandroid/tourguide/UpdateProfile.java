@@ -7,23 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.a1techandroid.tourguide.CustomClasses.UserModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -80,45 +72,45 @@ public class UpdateProfile extends AppCompatActivity {
             }
         });
 
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mProgressDialog.setTitle("Updating Account...");
-                mProgressDialog.setMessage("Please wait...");
-                mProgressDialog.show();
-                final StorageReference imagePath = mFirebaseStorage.child("Profile_Pics")
-                        .child(mImageUri.getLastPathSegment());
-                imagePath.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        imagePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                Uri donwloadUrl = uri;
-                                String imageUrl = donwloadUrl.toString();
-                                UserModel officers = new UserModel(nameEt.getText().toString(), emailEt.getText().toString(), phoneEt.getText().toString(), cityEt.getText().toString(), imageUrl);
-                                mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(officers).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(UpdateProfile.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                            mProgressDialog.hide();
-                                        } else {
-                                            Toast.makeText(UpdateProfile.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                                            mProgressDialog.hide();
-                                        }
-                                    }
-                                });
-
-
-                            }
-                        });
-                    }
-                });            }
-        });
+//        update.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mProgressDialog.setTitle("Updating Account...");
+//                mProgressDialog.setMessage("Please wait...");
+//                mProgressDialog.show();
+//                final StorageReference imagePath = mFirebaseStorage.child("Profile_Pics")
+//                        .child(mImageUri.getLastPathSegment());
+//                imagePath.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                        imagePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                            @Override
+//                            public void onSuccess(Uri uri) {
+//                                Uri donwloadUrl = uri;
+//                                String imageUrl = donwloadUrl.toString();
+//                                UserModel officers = new UserModel(nameEt.getText().toString(), emailEt.getText().toString(), phoneEt.getText().toString(), cityEt.getText().toString(), imageUrl);
+//                                mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                                        .setValue(officers).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//
+//                                        if (task.isSuccessful()) {
+//                                            Toast.makeText(UpdateProfile.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+//                                            finish();
+//                                            mProgressDialog.hide();
+//                                        } else {
+//                                            Toast.makeText(UpdateProfile.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+//                                            mProgressDialog.hide();
+//                                        }
+//                                    }
+//                                });
+//
+//
+//                            }
+//                        });
+//                    }
+//                });            }
+//        });
     }
 
     @Override

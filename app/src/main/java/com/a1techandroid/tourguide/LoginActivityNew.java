@@ -18,12 +18,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.a1techandroid.tourguide.CustomClasses.CustomDialog;
+import com.a1techandroid.tourguide.CustomClasses.Prefrences;
+import com.a1techandroid.tourguide.Models.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -36,6 +43,8 @@ public class LoginActivityNew extends AppCompatActivity {
     TextInputLayout emailError, passError;
     CustomDialog customDialog;
     private FirebaseAuth auth;
+    FirebaseDatabase database;
+    DatabaseReference reference;
     ProgressBar progressBar;
     Button b;
     private ProgressDialog mProgressDialog;
@@ -49,6 +58,8 @@ public class LoginActivityNew extends AppCompatActivity {
         setContentView(R.layout.activity_login_new);
         mProgressDialog = new ProgressDialog(LoginActivityNew.this);
         auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("Users");
         initViews();
         setUpClicks();
 
@@ -74,7 +85,7 @@ public class LoginActivityNew extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // redirect to RegisterActivity
-                Intent intent = new Intent(getApplicationContext(), SignUpNewActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SignupOptionsActivity.class);
                 startActivity(intent);
             }
         });
@@ -83,7 +94,6 @@ public class LoginActivityNew extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivityNew.this, PWresetActivity.class));
-                finish();
             }
         });
     }
@@ -149,9 +159,22 @@ public class LoginActivityNew extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }else {
-                                Intent intent = new Intent(LoginActivityNew.this, MainNewActivity.class);
-                                startActivity(intent);
-                                finish();
+                                reference.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".","")).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        UserModel userModel = snapshot.getValue(UserModel.class);
+                                        Prefrences.saveUSer(userModel, getApplicationContext());
+                                        Intent intent = new Intent(LoginActivityNew.this, MainNewActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
                             }}
                     }
                 });

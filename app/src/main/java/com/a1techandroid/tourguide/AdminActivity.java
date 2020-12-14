@@ -12,9 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.a1techandroid.tourguide.Adapter.CarRentalAdapter;
 import com.a1techandroid.tourguide.Adapter.HistoryAdapter;
+import com.a1techandroid.tourguide.Adapter.HotelingAdapter;
 import com.a1techandroid.tourguide.Adapter.UserAdapter;
+import com.a1techandroid.tourguide.Models.CarRentalModel;
 import com.a1techandroid.tourguide.Models.HistotyModel;
+import com.a1techandroid.tourguide.Models.HotelModel;
 import com.a1techandroid.tourguide.Models.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -41,6 +45,10 @@ public class AdminActivity extends AppCompatActivity {
     ArrayList<HistotyModel> listofItems1;
     ArrayList<UserModel> listofItems2;
     private ProgressDialog mProgressDialog;
+    HotelingAdapter adapter;
+    ArrayList<HotelModel> list=new ArrayList<>();
+    CarRentalAdapter carRentalAdapter;
+    ArrayList<CarRentalModel> listCar= new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,8 +57,8 @@ public class AdminActivity extends AppCompatActivity {
         rootNode=FirebaseDatabase.getInstance();
         reference=rootNode.getReference("Users");
         reference1=rootNode.getReference("History");
-        reference2=rootNode.getReference("Users");
-        reference3=rootNode.getReference("Users");
+        reference2=rootNode.getReference("Hotels");
+        reference3=rootNode.getReference("Car_Rental");
         mProgressDialog = new ProgressDialog(AdminActivity.this);
         listView=findViewById(R.id.listView);
         logout=findViewById(R.id.logout);
@@ -85,6 +93,7 @@ public class AdminActivity extends AppCompatActivity {
         Hotels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                readValueFromFireBase5();
             }
         });
 
@@ -193,16 +202,17 @@ public class AdminActivity extends AppCompatActivity {
         mProgressDialog.setMessage("Getting");
         mProgressDialog.show();
         listofItems1 = new ArrayList<>();
-        reference1.orderByChild("userType").equalTo("Ticket Agency").addChildEventListener(new ChildEventListener() {
+        reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                HistotyModel uni_model=snapshot.getValue(HistotyModel.class);
+                CarRentalModel uni_model=snapshot.getValue(CarRentalModel.class);
 //                officers.setUid(snapshot.getKey());
-                listofItems1.add(uni_model);
-                historyAdapter = new HistoryAdapter(getApplicationContext(), listofItems1);
-                listView.setAdapter(historyAdapter);
-                historyAdapter.notifyDataSetChanged();
+                listCar.add(uni_model);
+                carRentalAdapter = new CarRentalAdapter(getApplicationContext(), listCar);
+                listView.setAdapter(carRentalAdapter);
+                carRentalAdapter.notifyDataSetChanged();
                 mProgressDialog.hide();
+
             }
 
             @Override
@@ -213,13 +223,14 @@ public class AdminActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                HistotyModel uni_model=snapshot.getValue(HistotyModel.class);
+                CarRentalModel officers=snapshot.getValue(CarRentalModel.class);
 //                officers.setUid(snapshot.getKey());
-                listofItems1.add(uni_model);
-                historyAdapter = new HistoryAdapter(getApplicationContext(), listofItems1);
-                listView.setAdapter(historyAdapter);
-                historyAdapter.notifyDataSetChanged();
+                listCar.remove(officers);
+                carRentalAdapter = new CarRentalAdapter(getApplicationContext(), listCar);
+                listView.setAdapter(carRentalAdapter);
+                carRentalAdapter.notifyDataSetChanged();
                 mProgressDialog.hide();
+
             }
 
             @Override
@@ -281,6 +292,54 @@ public class AdminActivity extends AppCompatActivity {
         });
 
     }
+
+    public void readValueFromFireBase5(){
+        mProgressDialog.setMessage("Fetching Data");
+        mProgressDialog.show();
+        reference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                HotelModel uni_model=snapshot.getValue(HotelModel.class);
+//                officers.setUid(snapshot.getKey());
+                list.add(uni_model);
+                adapter= new HotelingAdapter(getApplicationContext(), list);
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                mProgressDialog.hide();
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                HotelModel officers=snapshot.getValue(HotelModel.class);
+//                officers.setUid(snapshot.getKey());
+                list.remove(officers);
+                adapter= new HotelingAdapter(getApplicationContext(), list);
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                mProgressDialog.hide();
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
 
 
 }

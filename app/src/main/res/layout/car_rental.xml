@@ -102,8 +102,6 @@
             />
 
     </LinearLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -113,20 +111,49 @@
         android:visibility="gone"
         >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Business Class"
-            android:textSize="20dp"
+            android:text="Business:"
+            android:textSize="24dp"
             android:textStyle="bold"
-            android:textColor="#923030"
+            android:textColor="@color/gray_color"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Departure"
+            android:text="Economy Class"
             android:id="@+id/business"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="visible"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Select Date"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/gray_color"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Please select date"
+            android:id="@+id/date"
             android:textSize="20dp"
             android:textColor="@color/black"
             />

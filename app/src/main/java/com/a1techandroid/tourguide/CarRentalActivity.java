@@ -1,8 +1,12 @@
 package com.a1techandroid.tourguide;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.a1techandroid.tourguide.CustomClasses.Commons;
 import com.a1techandroid.tourguide.Models.CarRentalModel;
 import com.a1techandroid.tourguide.Models.HistotyModel;
 import com.a1techandroid.tourguide.Models.PlaneModel;
@@ -21,10 +26,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class CarRentalActivity extends AppCompatActivity {
-    TextView departure, arrival, econmy, business;
+    TextView departure, arrival, econmy, business, date;
     CardView bookNow;
     CarRentalModel carRentalModel;
     private FirebaseDatabase mDatabase;
@@ -32,7 +38,17 @@ public class CarRentalActivity extends AppCompatActivity {
     private DatabaseReference mRefe2;
     private ProgressDialog mProgressDialog;
     HistotyModel histotyModel;
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
+    String Date;
+    String DateTime;
+    DatePickerDialog datePickerDialog;
+    EditText Notification, Description;
+
+    Calendar calendar_new;
+
+    int day_new, month_new, year_new;
+    Calendar calendar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +71,8 @@ public class CarRentalActivity extends AppCompatActivity {
         econmy=findViewById(R.id.econmy);
         business=findViewById(R.id.business);
         bookNow=findViewById(R.id.bookNow);
+        date=findViewById(R.id.date);
+
     }
 
 
@@ -66,6 +84,13 @@ public class CarRentalActivity extends AppCompatActivity {
     }
 
     public void setUPClicks(){
+
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dateTimeDialog();
+            }
+        });
         bookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +141,45 @@ public class CarRentalActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void dateTimeDialog() {
+
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+        datePickerDialog = new DatePickerDialog(CarRentalActivity.this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+//                            txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                        Date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+
+                        String test = "" + datePickerDialog.getDatePicker().getYear() + "-" + (datePickerDialog.getDatePicker().getMonth() + 1);
+                        day_new = datePickerDialog.getDatePicker().getDayOfMonth();
+                        month_new = datePickerDialog.getDatePicker().getMonth();
+                        year_new = datePickerDialog.getDatePicker().getYear();
+
+                        calendar = Calendar.getInstance();
+                        calendar.set(year_new, month_new, day_new);
+                        Log.i("okkk1111", "" + calendar.getTime());
+
+                        final Calendar c1 = Calendar.getInstance();
+                        mHour = c1.get(Calendar.HOUR_OF_DAY);
+                        mMinute = c1.get(Calendar.MINUTE);
+                        date.setText(""+ Commons.SimpleGMTTimeFormat(calendar.getTime().toString()));
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+
+
     }
 
 

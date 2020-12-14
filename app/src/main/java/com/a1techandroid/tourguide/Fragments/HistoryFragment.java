@@ -35,6 +35,11 @@ public class HistoryFragment extends Fragment {
     FirebaseDatabase rootNode;
     HistotyModel hotelModel;
     private ProgressDialog mProgressDialog;
+
+    public static HistoryFragment newInstance() {
+        HistoryFragment fragment = new HistoryFragment();
+        return fragment;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
