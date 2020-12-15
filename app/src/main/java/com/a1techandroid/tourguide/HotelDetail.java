@@ -148,7 +148,7 @@ public class HotelDetail extends AppCompatActivity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog = new DatePickerDialog(HotelDetail.this,
                 new DatePickerDialog.OnDateSetListener() {
 

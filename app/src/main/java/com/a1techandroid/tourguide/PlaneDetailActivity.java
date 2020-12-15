@@ -107,7 +107,7 @@ public class PlaneDetailActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             String key = mRefe2.push().getKey();
                             histotyModel = new HistotyModel("Plane Tickets", planeModel.getArrival(),"Pending", date.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",""));
-                            mRefe2.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            mRefe2.child(mRefe2.push().getKey())
                                     .setValue(histotyModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -139,7 +139,7 @@ public class PlaneDetailActivity extends AppCompatActivity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog = new DatePickerDialog(PlaneDetailActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
 
