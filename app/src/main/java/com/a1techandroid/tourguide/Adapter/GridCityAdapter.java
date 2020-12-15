@@ -3,6 +3,7 @@ package com.a1techandroid.tourguide.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.a1techandroid.tourguide.Fragments.CityDetailFragment;
 import com.a1techandroid.tourguide.GiftActivity;
 import com.a1techandroid.tourguide.Models.CityModel;
 import com.a1techandroid.tourguide.Models.GiftModel;
@@ -67,16 +74,19 @@ public class GridCityAdapter extends BaseAdapter {
         holder.arrival.setText(name.getName());
 
         holder.img.setImageDrawable(name.getImg());
-//        convertView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(), GiftActivity.class);
-//                Gson gson = new Gson();
-//                String myJson = gson.toJson(name);
-//                intent.putExtra("model", myJson);
-//                v.getContext().startActivity(intent);
-//            }
-//        });
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new CityDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("myIDKey",name);
+                fragment.setArguments(bundle);
+                FragmentManager fm = ((AppCompatActivity)context).getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.add(R.id.inc, fragment).addToBackStack(fragment.getTag());
+                ft.commit();
+            }
+        });
 
 
         return convertView;

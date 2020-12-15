@@ -2,7 +2,9 @@ package com.a1techandroid.tourguide.Models;
 
 import android.graphics.drawable.Drawable;
 
-public class CityModel {
+import java.io.Serializable;
+
+public class CityModel implements Serializable {
 
     String name, detail;
     Drawable img;

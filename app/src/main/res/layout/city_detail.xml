@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/image"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="City Name"
+        android:textSize="24dp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:id="@+id/cityName"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="dfdfd"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        android:textAlignment="textStart"
+        android:layout_margin="15dp"
+        android:id="@+id/detail"
+        />
+
+</LinearLayout>

@@ -114,7 +114,7 @@ public class CarRentalActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             String key = mRefe2.push().getKey();
-                                            histotyModel = new HistotyModel("Car/ Bus Ticket", carRentalModel.getArrival(), "Pending", new Date().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".", ""));
+                                            histotyModel = new HistotyModel("Car/ Bus Ticket", carRentalModel.getArrival(), "Pending",date.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".", ""));
                                             mRefe2.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                                     .setValue(histotyModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
