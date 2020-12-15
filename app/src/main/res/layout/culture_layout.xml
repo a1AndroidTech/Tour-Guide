@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <ImageView
+
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:alpha="0.6"
+        android:background="@drawable/culture_img"
+        android:padding="10dp"
+        android:scaleType="centerCrop" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Pakistan is home to four provinces (Punjab, Baluchistan, Sindh and KP) and three autonomous zones (FATA, Gilgit-Baltistan (GB) and Azad Kashmir). Living in these areas are people belonging to hundreds of tribes/clans and thousands of sub-communities. Most, if not all, have their distinct socio-cultural identity which accords them special historical importance."
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_margin="10dp"
+            />
+
+    </FrameLayout>
+
+</RelativeLayout>

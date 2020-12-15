@@ -32,12 +32,14 @@ import androidx.fragment.app.FragmentManager;
 
 import com.a1techandroid.tourguide.CustomClasses.Prefrences;
 import com.a1techandroid.tourguide.Fragments.AboutAppfragment;
+import com.a1techandroid.tourguide.Fragments.CityFragment;
 import com.a1techandroid.tourguide.Fragments.FragmentAirPlane;
 import com.a1techandroid.tourguide.Fragments.FragmentCar;
 import com.a1techandroid.tourguide.Fragments.FragmentHomeNew;
 import com.a1techandroid.tourguide.Fragments.FragmentHoteling;
 import com.a1techandroid.tourguide.Fragments.FragmentHotler;
 import com.a1techandroid.tourguide.Fragments.FragmentTickter;
+import com.a1techandroid.tourguide.Fragments.FragmetnTicketing;
 import com.a1techandroid.tourguide.Fragments.HistoryFragment;
 import com.a1techandroid.tourguide.Fragments.SettingFragment;
 import com.a1techandroid.tourguide.Models.UserModel;
@@ -118,14 +120,14 @@ public class MainNewActivity extends AppCompatActivity implements NavigationView
             fragmentManager.beginTransaction().add(R.id.inc, fragment).commit();
 
         }else if (userModel.getUserType().equals("3")){
-            FragmentCar fragment;
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragment = new FragmentCar();
-            fragmentManager.beginTransaction().add(R.id.inc, fragment).commit();
-        }else if (userModel.getUserType().equals("4")){
             FragmentTickter fragment;
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragment = new FragmentTickter();
+            fragmentManager.beginTransaction().add(R.id.inc, fragment).commit();
+        }else if (userModel.getUserType().equals("4")){
+            FragmetnTicketing fragment;
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment = new FragmetnTicketing();
             fragmentManager.beginTransaction().add(R.id.inc, fragment).commit();
         }
 
@@ -203,6 +205,13 @@ public class MainNewActivity extends AppCompatActivity implements NavigationView
                 FragmentCar fragment2;
                 fragment2 = new FragmentCar();
                 fragmentManager.beginTransaction().add(R.id.inc, fragment2).addToBackStack(fragment2.getTag()).commit();
+
+                break;
+
+            case R.id.nav_signout:
+                CityFragment fragmentcity;
+                fragmentcity = new CityFragment();
+                fragmentManager.beginTransaction().add(R.id.inc, fragmentcity).addToBackStack(fragmentcity.getTag()).commit();
 
                 break;
 

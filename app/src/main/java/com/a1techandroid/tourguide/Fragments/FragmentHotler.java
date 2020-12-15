@@ -12,14 +12,17 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.a1techandroid.tourguide.Adapter.BookingAdaptere;
 import com.a1techandroid.tourguide.Adapter.HotelingAdapter;
 import com.a1techandroid.tourguide.CustomClasses.Prefrences;
+import com.a1techandroid.tourguide.Models.Booking;
 import com.a1techandroid.tourguide.Models.HotelModel;
 import com.a1techandroid.tourguide.Models.UserModel;
 import com.a1techandroid.tourguide.R;
@@ -43,23 +46,26 @@ import java.util.Map;
 
 public class FragmentHotler extends Fragment {
     ListView listView;
-    HotelingAdapter adapter;
-    ArrayList<HotelModel> list = new ArrayList<>();
+    BookingAdaptere adapter;
+    ArrayList<Booking> list = new ArrayList<>();
     DatabaseReference reference;
     DatabaseReference reference1;
+    DatabaseReference reference2;
     FirebaseDatabase rootNode;
     HotelModel hotelModel;
     private ProgressDialog mProgressDialog;
     UserModel userModel;
     Dialog dialog;
+    TextView centerTExt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_airplane, container, false);
         rootNode = FirebaseDatabase.getInstance();
-        reference = rootNode.getReference("hoteling");
+        reference = rootNode.getReference("Hotels");
         reference1 = rootNode.getReference("Users");
+        reference2 = rootNode.getReference("hotel_booking");
         mProgressDialog = new ProgressDialog(getActivity());
         userModel = Prefrences.getUser(getActivity());
 
@@ -81,69 +87,54 @@ public class FragmentHotler extends Fragment {
 
     public void initViews(View view) {
         listView = view.findViewById(R.id.listView);
+        centerTExt = view.findViewById(R.id.centerTExt);
     }
 
     public void initV() {
         readValueFromFireBase();
     }
 
-    public void addUni() {
-        for (int i = 0; i < list.size(); i++) {
-            hotelModel = list.get(i);
-            String key = reference.push().getKey();
-            reference.child(key)
-                    .setValue(hotelModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getActivity(), "submitted successfully", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getActivity(), "something went wrong", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
-
-    }
+//    public void addUni() {
+//        for (int i = 0; i < list.size(); i++) {
+//            hotelModel = list.get(i);
+//            String key = reference.push().getKey();
+//            reference.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",""))
+//                    .setValue(hotelModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//
+//                    if (task.isSuccessful()) {
+//                        Toast.makeText(getActivity(), "submitted successfully", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(getActivity(), "something went wrong", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
+//        }
+//
+//
+//    }
 
     public void readValueFromFireBase() {
         mProgressDialog.setMessage("Fetching Data");
         mProgressDialog.show();
-        reference.addChildEventListener(new ChildEventListener() {
+
+        reference2.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".","")).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                HotelModel uni_model = snapshot.getValue(HotelModel.class);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Booking uni_model = snapshot.getValue(Booking.class);
 //                officers.setUid(snapshot.getKey());
-                list.add(uni_model);
-                adapter = new HotelingAdapter(getActivity(), list);
-                listView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-                mProgressDialog.hide();
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                HotelModel officers = snapshot.getValue(HotelModel.class);
-//                officers.setUid(snapshot.getKey());
-                list.remove(officers);
-                adapter = new HotelingAdapter(getActivity(), list);
-                listView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-                mProgressDialog.hide();
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (uni_model != null){
+                    list.add(uni_model);
+                    adapter = new BookingAdaptere(getActivity(), list);
+                    listView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                    mProgressDialog.hide();
+                }else {
+                    centerTExt.setVisibility(View.VISIBLE);
+                    centerTExt.setText("Not Any Booking Yet!");
+                    mProgressDialog.hide();
+                }
 
             }
 
@@ -152,6 +143,47 @@ public class FragmentHotler extends Fragment {
 
             }
         });
+//        reference.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".","")).addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                HotelModel uni_model = snapshot.getValue(HotelModel.class);
+////                officers.setUid(snapshot.getKey());
+//                list.add(uni_model);
+//                adapter = new HotelingAdapter(getActivity(), list);
+//                listView.setAdapter(adapter);
+//                adapter.notifyDataSetChanged();
+//                mProgressDialog.hide();
+//
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//                HotelModel officers = snapshot.getValue(HotelModel.class);
+////                officers.setUid(snapshot.getKey());
+//                list.remove(officers);
+//                adapter = new HotelingAdapter(getActivity(), list);
+//                listView.setAdapter(adapter);
+//                adapter.notifyDataSetChanged();
+//                mProgressDialog.hide();
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
 
@@ -174,8 +206,8 @@ public class FragmentHotler extends Fragment {
                 AuthCredential credential = EmailAuthProvider
                         .getCredential(editText.getText().toString(), editText2.getText().toString());
                 String key = reference.push().getKey();
-                HotelModel hotelModel1 = new HotelModel(editText.getText().toString(), editText2.getText().toString(), editText3.getText().toString(), 0);
-                reference.child(key)
+                HotelModel hotelModel1 = new HotelModel(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",""),editText.getText().toString(), editText2.getText().toString(), editText3.getText().toString(), 0);
+                reference.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",""))
                         .setValue(hotelModel1).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -209,6 +241,7 @@ public class FragmentHotler extends Fragment {
                     Prefrences.saveUSer(model, getActivity());
                     Toast.makeText(getActivity(), "updated", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
+                    readValueFromFireBase();
                 }
 
 

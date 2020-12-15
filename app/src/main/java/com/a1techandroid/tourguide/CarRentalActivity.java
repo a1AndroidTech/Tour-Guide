@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.a1techandroid.tourguide.CustomClasses.Commons;
+import com.a1techandroid.tourguide.Models.Booking;
 import com.a1techandroid.tourguide.Models.CarRentalModel;
 import com.a1techandroid.tourguide.Models.HistotyModel;
 import com.a1techandroid.tourguide.Models.PlaneModel;
@@ -49,6 +50,8 @@ public class CarRentalActivity extends AppCompatActivity {
 
     int day_new, month_new, year_new;
     Calendar calendar;
+
+    Booking booking;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,51 +97,55 @@ public class CarRentalActivity extends AppCompatActivity {
         bookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgressDialog.setMessage("Make Booking");
-                mProgressDialog.show();
-                mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .setValue(carRentalModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(carRentalModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        String key = mRefe2.push().getKey();
-                                        histotyModel = new HistotyModel("Car/ Bus Ticket", carRentalModel.getArrival(),"Pending", new Date().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",""));
-                                        mRefe2.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                .setValue(histotyModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
+                if (date.getText().equals("Please select date")){
+                    Toast.makeText(CarRentalActivity.this, "Please select date first", Toast.LENGTH_SHORT).show();
+                }else {
+                    mProgressDialog.setMessage("Make Booking");
+                    mProgressDialog.show();
+                    booking = new Booking("Renting", carRentalModel.getArrival(), carRentalModel.getDestination(), date.getText().toString(), "pending");
+                    mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(booking).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .setValue(carRentalModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            String key = mRefe2.push().getKey();
+                                            histotyModel = new HistotyModel("Car/ Bus Ticket", carRentalModel.getArrival(), "Pending", new Date().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".", ""));
+                                            mRefe2.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                    .setValue(histotyModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
 
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(CarRentalActivity.this, "Booking Request Submtted", Toast.LENGTH_SHORT).show();
-                                                    finish();
-                                                    mProgressDialog.hide();
-                                                } else {
-                                                    Toast.makeText(getApplicationContext(), "something went wrong", Toast.LENGTH_SHORT).show();
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(CarRentalActivity.this, "Booking Request Submtted", Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                        mProgressDialog.hide();
+                                                    } else {
+                                                        Toast.makeText(getApplicationContext(), "something went wrong", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
 
 
-
-                                    } else {
-                                        Toast.makeText(CarRentalActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
-                                        mProgressDialog.hide();
+                                        } else {
+                                            Toast.makeText(CarRentalActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+                                            mProgressDialog.hide();
+                                        }
                                     }
-                                }
-                            });
+                                });
 
 
-                        } else {
-                            Toast.makeText(CarRentalActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
-                            mProgressDialog.hide();
+                            } else {
+                                Toast.makeText(CarRentalActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+                                mProgressDialog.hide();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     }

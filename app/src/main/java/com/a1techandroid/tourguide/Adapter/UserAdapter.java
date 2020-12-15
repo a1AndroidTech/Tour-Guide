@@ -67,7 +67,19 @@ public class UserAdapter extends BaseAdapter {
 
 
         holder.userName.setText(name.getName());
-        holder.userType.setText(name.getUserType());
+        if (name.getUserType().equals("1")){
+            holder.userType.setText("Traveler");
+
+        }else if (name.getUserType().equals("2")){
+            holder.userType.setText("Hotel");
+
+        }else if (name.getUserType().equals("3")){
+            holder.userType.setText("Ticket");
+
+        }else if (name.getUserType().equals("4")){
+            holder.userType.setText("Rent");
+
+        }
         holder.userLocation.setText(name.getCity());
 
 //        convertView.setOnClickListener(new View.OnClickListener() {

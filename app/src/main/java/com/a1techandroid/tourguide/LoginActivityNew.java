@@ -134,7 +134,6 @@ public class LoginActivityNew extends AppCompatActivity {
 
         if (isEmailValid && isPasswordValid) {
             loginUSer(email.getText().toString(), password.getText().toString());
-            Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_SHORT).show();
         }
 
     }

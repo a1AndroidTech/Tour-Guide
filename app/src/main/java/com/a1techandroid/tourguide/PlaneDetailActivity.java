@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.a1techandroid.tourguide.CustomClasses.Commons;
+import com.a1techandroid.tourguide.Models.Booking;
 import com.a1techandroid.tourguide.Models.HistotyModel;
 import com.a1techandroid.tourguide.Models.PlaneModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,6 +48,7 @@ public class PlaneDetailActivity extends AppCompatActivity {
 
     int day_new, month_new, year_new;
     Calendar calendar;
+    Booking booking;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class PlaneDetailActivity extends AppCompatActivity {
 
 
         mDatabase = FirebaseDatabase.getInstance();
-        mRefe = mDatabase.getReference("plane_ticket");
+        mRefe = mDatabase.getReference("ticket_booking");
         mRefe2 = mDatabase.getReference("History");
 
         mProgressDialog = new ProgressDialog(this);
@@ -91,10 +93,15 @@ public class PlaneDetailActivity extends AppCompatActivity {
         bookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (date.getText().equals("Please select date")){
+                    Toast.makeText(PlaneDetailActivity.this, "Please select date first", Toast.LENGTH_SHORT).show();
+                }else {
                 mProgressDialog.setMessage("Make Booking");
                 mProgressDialog.show();
-                mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .setValue(planeModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                booking = new Booking("Ticketing",planeModel.getArrival(), planeModel.getDestination(), date.getText().toString(), "pending");
+                mRefe.child(planeModel.getEmail())
+                        .setValue(booking).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
@@ -121,7 +128,7 @@ public class PlaneDetailActivity extends AppCompatActivity {
                         }
                     }
                 });
-            }
+            }}
         });
     }
 

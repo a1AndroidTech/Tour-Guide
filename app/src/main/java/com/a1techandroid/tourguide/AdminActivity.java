@@ -73,7 +73,7 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(AdminActivity.this, LoginActivity.class));
+                startActivity(new Intent(AdminActivity.this, LoginActivityNew.class));
             }
         });
 
@@ -202,7 +202,7 @@ public class AdminActivity extends AppCompatActivity {
         mProgressDialog.setMessage("Getting");
         mProgressDialog.show();
         listofItems1 = new ArrayList<>();
-        reference.addChildEventListener(new ChildEventListener() {
+        reference3.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 CarRentalModel uni_model=snapshot.getValue(CarRentalModel.class);
@@ -296,7 +296,7 @@ public class AdminActivity extends AppCompatActivity {
     public void readValueFromFireBase5(){
         mProgressDialog.setMessage("Fetching Data");
         mProgressDialog.show();
-        reference.addChildEventListener(new ChildEventListener() {
+        reference2.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 HotelModel uni_model=snapshot.getValue(HotelModel.class);

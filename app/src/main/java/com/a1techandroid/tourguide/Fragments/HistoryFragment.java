@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ public class HistoryFragment extends Fragment {
     FirebaseDatabase rootNode;
     HistotyModel hotelModel;
     private ProgressDialog mProgressDialog;
+    TextView noHistoryText;
 
     public static HistoryFragment newInstance() {
         HistoryFragment fragment = new HistoryFragment();
@@ -54,6 +56,7 @@ public class HistoryFragment extends Fragment {
 
     private void initViews(View view) {
         listView=view.findViewById(R.id.listView);
+        noHistoryText=view.findViewById(R.id.noHistoryText);
     }
 
     @Override
@@ -76,6 +79,9 @@ public class HistoryFragment extends Fragment {
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 mProgressDialog.hide();
+                }
+                if (list.size() == 0){
+                    noHistoryText.setVisibility(View.VISIBLE);
                 }
                 mProgressDialog.dismiss();
             }

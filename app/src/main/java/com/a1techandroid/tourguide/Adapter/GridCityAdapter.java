@@ -10,23 +10,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.a1techandroid.tourguide.CustomClasses.Commons;
 import com.a1techandroid.tourguide.GiftActivity;
+import com.a1techandroid.tourguide.Models.CityModel;
 import com.a1techandroid.tourguide.Models.GiftModel;
-import com.a1techandroid.tourguide.Models.HistotyModel;
 import com.a1techandroid.tourguide.R;
 import com.google.gson.Gson;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class HistoryAdapter extends BaseAdapter {
+public class GridCityAdapter extends BaseAdapter {
     Context context;
-    ArrayList<HistotyModel> list = new ArrayList<>();
+    ArrayList<CityModel> list = new ArrayList<>();
 
-    public HistoryAdapter(Context context, ArrayList<HistotyModel> list) {
+    public GridCityAdapter(Context context, ArrayList<CityModel> list) {
         this.context = context;
         this.list = list;
     }
@@ -48,7 +44,8 @@ public class HistoryAdapter extends BaseAdapter {
 
 
     class ViewHolder{
-        TextView name, status, date, type;
+        TextView arrival;
+        ImageView img;
     }
 
     @Override
@@ -56,24 +53,20 @@ public class HistoryAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null){
             LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.history_item, null);
+            convertView = mInflater.inflate(R.layout.grid_city_item, null);
             holder = new ViewHolder();
-            holder.name = convertView.findViewById(R.id.name);
-            holder.status = convertView.findViewById(R.id.status);
-            holder.date = convertView.findViewById(R.id.date);
-            holder.type = convertView.findViewById(R.id.type);
+            holder.arrival = convertView.findViewById(R.id.name);
+            holder.img = convertView.findViewById(R.id.image);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final HistotyModel name = list.get(position);
+        final CityModel name = list.get(position);
 
 
-        holder.name.setText(name.getName());
-        holder.status.setText(name.getStatus());
-        holder.date.setText(name.getDate());
-        holder.type.setText(name.getType());
+        holder.arrival.setText(name.getName());
 
+        holder.img.setImageDrawable(name.getImg());
 //        convertView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -87,21 +80,6 @@ public class HistoryAdapter extends BaseAdapter {
 
 
         return convertView;
-    }
-
-    public String getFormateddate(String format){
-        Date date=null;
-        String date2 = null;
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy");
-        String temp = "Thu Dec 17 15:37:43 GMT+05:30 2015";
-        try {
-            date = formatter.parse(format);
-            date2 = date.toString();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return date2;
     }
 }
 

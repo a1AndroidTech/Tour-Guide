@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.a1techandroid.tourguide.CustomClasses.Commons;
+import com.a1techandroid.tourguide.Models.Booking;
 import com.a1techandroid.tourguide.Models.GiftModel;
 import com.a1techandroid.tourguide.Models.HistotyModel;
 import com.a1techandroid.tourguide.Models.HotelModel;
@@ -38,6 +39,7 @@ public class HotelDetail extends AppCompatActivity {
     private DatabaseReference mRefe2;
     private ProgressDialog mProgressDialog;
     HistotyModel histotyModel;
+    Booking booking;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -96,38 +98,43 @@ public class HotelDetail extends AppCompatActivity {
         bookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgressDialog.setMessage("Make Booking");
-                mProgressDialog.show();
-                mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",""))
-                        .setValue(carRentalModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            String key = mRefe2.push().getKey();
-                            histotyModel = new HistotyModel("Hotel Ticket", carRentalModel.getArrival(),"Pending", date.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",""));
-                            mRefe2.child(mRefe2.push().getKey())
-                                    .setValue(histotyModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
 
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(HotelDetail.this, "Booking Request Submtted", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                        mProgressDialog.hide();                                    } else {
-                                        Toast.makeText(getApplicationContext(), "something went wrong", Toast.LENGTH_SHORT).show();
+                if (date.getText().equals("Please select date")){
+                    Toast.makeText(HotelDetail.this, "Please select date first", Toast.LENGTH_SHORT).show();
+                }else {
+                    mProgressDialog.setMessage("Make Booking");
+                    mProgressDialog.show();
+                    booking = new Booking("Hoteling", carRentalModel.getArrival(), carRentalModel.getDestination(), date.getText().toString(), "Pending");
+                    mRefe.child(carRentalModel.getEmail())
+                            .setValue(booking).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                String key = mRefe2.push().getKey();
+                                histotyModel = new HistotyModel("Hotel Ticket", carRentalModel.getArrival(), "Pending", date.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".", ""));
+                                mRefe2.child(mRefe2.push().getKey())
+                                        .setValue(histotyModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(HotelDetail.this, "Booking Request Submtted", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                            mProgressDialog.hide();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "something went wrong", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
 
 
-
-                        } else {
-                            Toast.makeText(HotelDetail.this, "something went wrong", Toast.LENGTH_SHORT).show();
-                            mProgressDialog.hide();
+                            } else {
+                                Toast.makeText(HotelDetail.this, "something went wrong", Toast.LENGTH_SHORT).show();
+                                mProgressDialog.hide();
+                            }
                         }
-                    }
-                });
-
+                    });
+                }
             }
         });
 

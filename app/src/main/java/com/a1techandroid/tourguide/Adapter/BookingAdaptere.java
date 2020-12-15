@@ -2,31 +2,26 @@ package com.a1techandroid.tourguide.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.a1techandroid.tourguide.CustomClasses.Commons;
-import com.a1techandroid.tourguide.GiftActivity;
-import com.a1techandroid.tourguide.Models.GiftModel;
+import com.a1techandroid.tourguide.Models.Booking;
 import com.a1techandroid.tourguide.Models.HistotyModel;
 import com.a1techandroid.tourguide.R;
-import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class HistoryAdapter extends BaseAdapter {
+public class BookingAdaptere extends BaseAdapter {
     Context context;
-    ArrayList<HistotyModel> list = new ArrayList<>();
+    ArrayList<Booking> list = new ArrayList<>();
 
-    public HistoryAdapter(Context context, ArrayList<HistotyModel> list) {
+    public BookingAdaptere(Context context, ArrayList<Booking> list) {
         this.context = context;
         this.list = list;
     }
@@ -56,23 +51,23 @@ public class HistoryAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null){
             LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.history_item, null);
+            convertView = mInflater.inflate(R.layout.bookig_item, null);
             holder = new ViewHolder();
             holder.name = convertView.findViewById(R.id.name);
             holder.status = convertView.findViewById(R.id.status);
             holder.date = convertView.findViewById(R.id.date);
-            holder.type = convertView.findViewById(R.id.type);
+//            holder.type = convertView.findViewById(R.id.type);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final HistotyModel name = list.get(position);
+        final Booking name = list.get(position);
 
 
         holder.name.setText(name.getName());
-        holder.status.setText(name.getStatus());
+        holder.status.setText(name.getType());
         holder.date.setText(name.getDate());
-        holder.type.setText(name.getType());
+//        holder.type.setText(name.getType());
 
 //        convertView.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -91,6 +91,16 @@ public class FragmentHomeNew extends Fragment implements CardViewOptionsAdapter.
                 fragment2 = new FragmentCar();
                 fragmentManager.beginTransaction().add(R.id.inc, fragment2).addToBackStack(fragment2.getTag()).commit();
                 break;
+
+            case 3:
+                break;
+
+            case 4:
+                FragmentCulture fragment4;
+                fragment4 = new FragmentCulture();
+                fragmentManager.beginTransaction().add(R.id.inc, fragment4).addToBackStack(fragment4.getTag()).commit();
+
+                break;
         }
     }
 
