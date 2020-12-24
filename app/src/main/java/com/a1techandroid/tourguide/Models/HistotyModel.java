@@ -7,6 +7,18 @@ public class HistotyModel {
     String status;
     String date;
     String email;
+    String userName;
+    String userEmail;
+
+    public HistotyModel(String type, String name, String status, String date, String email, String userName, String userEmail) {
+        this.type = type;
+        this.name = name;
+        this.status = status;
+        this.date = date;
+        this.email = email;
+        this.userName = userName;
+        this.userEmail = userEmail;
+    }
 
     public HistotyModel(){
 
@@ -59,5 +71,21 @@ public class HistotyModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }

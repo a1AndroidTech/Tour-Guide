@@ -24,16 +24,18 @@
             android:id="@+id/nameError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_margin="10dp">
 
             <EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Name"
+                android:text="Name"
+                android:textColorHint="@color/black"
                 android:inputType="textNoSuggestions"
                 android:maxLines="1"
+                android:textColor="@color/black"
                 android:paddingStart="5dp"
                 android:singleLine="true"
                 android:paddingLeft="5dp" />
@@ -45,16 +47,17 @@
             android:id="@+id/emailError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_margin="10dp">
 
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Email"
+                android:text="Email"
                 android:inputType="textNoSuggestions"
                 android:maxLines="1"
+                android:textColor="@color/black"
                 android:paddingStart="5dp"
                 android:singleLine="true"
                 android:paddingLeft="5dp"
@@ -67,14 +70,15 @@
             android:id="@+id/phoneError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_margin="10dp">
 
             <EditText
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Phone"
+                android:text="Phone"
+                android:textColor="@color/black"
                 android:inputType="textNoSuggestions"
                 android:maxLines="1"
                 android:paddingStart="5dp"
@@ -87,7 +91,8 @@
             android:id="@+id/cityError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_margin="10dp"
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/city"
@@ -107,12 +112,56 @@
         <Button
             android:id="@+id/add_user"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_buttons"
+            android:background="#03A9F4"
             android:text="Update Profile"
-            android:textColor="@color/color9"
+            android:layout_margin="15dp"
+            android:textColor="@color/black"
             android:transitionName="transition_login" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Visit Places"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/plus"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/add"
+                    />
+
+            </RelativeLayout>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listView"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
     </LinearLayout>
 
 

@@ -43,48 +43,53 @@
                         android:textStyle="bold"
                         />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:layout_marginRight="10dp"
-
-                    >
-
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Location:"
+                        android:text="From"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Departure"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:id="@+id/arrival"
-                        android:layout_marginLeft="20dp"
+                        android:textSize="16sp"
+                        android:id="@+id/dep"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
                         />
+
+
                 </LinearLayout>
+
 
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="From"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:id="@+id/dep"
-                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp"
+
                 android:layout_marginLeft="10dp"
-                />
+
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location:"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"                        />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Departure"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:id="@+id/arrival"
+                    android:layout_marginLeft="20dp"
+                    />
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -16,7 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.a1techandroid.tourguide.CustomClasses.Commons;
+import com.a1techandroid.tourguide.CustomClasses.Prefrences;
 import com.a1techandroid.tourguide.Models.Booking;
+import com.a1techandroid.tourguide.Models.BookingHotel;
 import com.a1techandroid.tourguide.Models.HistotyModel;
 import com.a1techandroid.tourguide.Models.PlaneModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class PlaneDetailActivity extends AppCompatActivity {
-    TextView departure, arrival, econmy, business, date;
+    TextView departure, arrival, econmy, business, date, userName, userPhone;
     CardView bookNow;
     PlaneModel planeModel;
     private FirebaseDatabase mDatabase;
@@ -48,7 +50,7 @@ public class PlaneDetailActivity extends AppCompatActivity {
 
     int day_new, month_new, year_new;
     Calendar calendar;
-    Booking booking;
+    BookingHotel booking;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,10 @@ public class PlaneDetailActivity extends AppCompatActivity {
         business=findViewById(R.id.business);
         bookNow=findViewById(R.id.bookNow);
         date=findViewById(R.id.date);
+        userName=findViewById(R.id.userName);
+        userName.setText(Prefrences.getUser(getApplicationContext()).getName());
+        userPhone=findViewById(R.id.userPhone);
+        userPhone.setText(Prefrences.getUser(getApplicationContext()).getPhone());
     }
 
     public void setUpValues(PlaneModel model){
@@ -99,8 +105,8 @@ public class PlaneDetailActivity extends AppCompatActivity {
                 }else {
                 mProgressDialog.setMessage("Make Booking");
                 mProgressDialog.show();
-                booking = new Booking("Ticketing",planeModel.getArrival(), planeModel.getDestination(), date.getText().toString(), "pending");
-                mRefe.child(planeModel.getEmail())
+                booking = new BookingHotel(planeModel.getEmail(), "Ticketing",planeModel.getArrival(), planeModel.getDestination(), date.getText().toString(), "pending", Prefrences.getUser(getApplicationContext()).getName(), Prefrences.getUser(getApplicationContext()).getPhone(), "", "");
+                mRefe.child(planeModel.getEmail()).child(mRefe.push().getKey())
                         .setValue(booking).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -139,7 +145,6 @@ public class PlaneDetailActivity extends AppCompatActivity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog = new DatePickerDialog(PlaneDetailActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
 
@@ -166,6 +171,7 @@ public class PlaneDetailActivity extends AppCompatActivity {
                         date.setText(""+ Commons.SimpleGMTTimeFormat(calendar.getTime().toString()));
                     }
                 }, mYear, mMonth, mDay);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
 
 

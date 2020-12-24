@@ -2,17 +2,18 @@ package com.a1techandroid.tourguide.Models;
 
 public class CarRentalModel {
 
-    String arrival, destination, eco, gold;
+    String arrival, destination, eco, gold, email;
 
     public CarRentalModel(){
 
     }
 
-    public CarRentalModel(String arrival, String destination, String eco, String gold) {
+    public CarRentalModel(String arrival, String destination, String eco, String gold, String email) {
         this.arrival = arrival;
         this.destination = destination;
         this.eco = eco;
         this.gold = gold;
+        this.email = email;
     }
 
 
@@ -46,5 +47,13 @@ public class CarRentalModel {
 
     public void setGold(String gold) {
         this.gold = gold;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

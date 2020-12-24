@@ -16,10 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.a1techandroid.tourguide.CustomClasses.Commons;
+import com.a1techandroid.tourguide.CustomClasses.Prefrences;
 import com.a1techandroid.tourguide.Models.Booking;
+import com.a1techandroid.tourguide.Models.BookingHotel;
 import com.a1techandroid.tourguide.Models.GiftModel;
 import com.a1techandroid.tourguide.Models.HistotyModel;
 import com.a1techandroid.tourguide.Models.HotelModel;
+import com.a1techandroid.tourguide.Models.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,7 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class HotelDetail extends AppCompatActivity {
-    TextView departure, arrival, econmy, business, date;
+    TextView departure, arrival, econmy, business, date, userName, userPhone;
     CardView bookNow;
     HotelModel carRentalModel;
     private FirebaseDatabase mDatabase;
@@ -39,7 +42,9 @@ public class HotelDetail extends AppCompatActivity {
     private DatabaseReference mRefe2;
     private ProgressDialog mProgressDialog;
     HistotyModel histotyModel;
-    Booking booking;
+    BookingHotel booking;
+    UserModel userModel;
+    EditText numbOfRooms, familyType;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -56,11 +61,13 @@ public class HotelDetail extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.car_rental);
+        setContentView(R.layout.hotel_booking);
         mDatabase = FirebaseDatabase.getInstance();
         mRefe = mDatabase.getReference("hotel_booking");
         mRefe2 = mDatabase.getReference("History");
         mProgressDialog = new ProgressDialog(this);
+        userModel= Prefrences.getUser(HotelDetail.this);
+
 
 
         Gson gson = new Gson();
@@ -77,6 +84,10 @@ public class HotelDetail extends AppCompatActivity {
         business=findViewById(R.id.business);
         bookNow=findViewById(R.id.bookNow);
         date=findViewById(R.id.date);
+        userName=findViewById(R.id.userName);
+        userPhone=findViewById(R.id.userPhone);
+        numbOfRooms=findViewById(R.id.numOfRooms);
+        familyType=findViewById(R.id.familyType);
     }
 
 
@@ -84,6 +95,8 @@ public class HotelDetail extends AppCompatActivity {
         departure.setText(model.getDestination());
         arrival.setText(model.getArrival());
         econmy.setText(model.getEco());
+        userName.setText(userModel.getName());
+        userPhone.setText(userModel.getPhone());
     }
 
     public void setUPClicks(){
@@ -104,8 +117,8 @@ public class HotelDetail extends AppCompatActivity {
                 }else {
                     mProgressDialog.setMessage("Make Booking");
                     mProgressDialog.show();
-                    booking = new Booking("Hoteling", carRentalModel.getArrival(), carRentalModel.getDestination(), date.getText().toString(), "Pending");
-                    mRefe.child(carRentalModel.getEmail())
+                    booking = new BookingHotel(carRentalModel.getEmail(),"Hoteling", carRentalModel.getArrival(), carRentalModel.getDestination(), date.getText().toString(), "Pending", userModel.getName(), userModel.getPhone(), numbOfRooms.getText().toString(), familyType.getText().toString());
+                    mRefe.child(carRentalModel.getEmail()).child(mRefe.push().getKey())
                             .setValue(booking).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -148,7 +161,6 @@ public class HotelDetail extends AppCompatActivity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog = new DatePickerDialog(HotelDetail.this,
                 new DatePickerDialog.OnDateSetListener() {
 
@@ -175,6 +187,7 @@ public class HotelDetail extends AppCompatActivity {
                         date.setText(""+ Commons.SimpleGMTTimeFormat(calendar.getTime().toString()));
                     }
                 }, mYear, mMonth, mDay);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
 
 

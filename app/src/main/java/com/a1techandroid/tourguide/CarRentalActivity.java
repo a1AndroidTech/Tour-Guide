@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,10 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.a1techandroid.tourguide.CustomClasses.Commons;
+import com.a1techandroid.tourguide.CustomClasses.Prefrences;
 import com.a1techandroid.tourguide.Models.Booking;
+import com.a1techandroid.tourguide.Models.BookingHotel;
 import com.a1techandroid.tourguide.Models.CarRentalModel;
 import com.a1techandroid.tourguide.Models.HistotyModel;
 import com.a1techandroid.tourguide.Models.PlaneModel;
+import com.a1techandroid.tourguide.Models.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,7 +35,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CarRentalActivity extends AppCompatActivity {
-    TextView departure, arrival, econmy, business, date;
+    TextView departure, arrival, econmy, business, date, userName, userPhone;
     CardView bookNow;
     CarRentalModel carRentalModel;
     private FirebaseDatabase mDatabase;
@@ -40,7 +44,7 @@ public class CarRentalActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     HistotyModel histotyModel;
     private int mYear, mMonth, mDay, mHour, mMinute;
-
+    EditText numOfRooms, familyType;
     String Date;
     String DateTime;
     DatePickerDialog datePickerDialog;
@@ -50,15 +54,17 @@ public class CarRentalActivity extends AppCompatActivity {
 
     int day_new, month_new, year_new;
     Calendar calendar;
+    UserModel userModel;
 
-    Booking booking;
+    BookingHotel booking;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.car_rental);
+        setContentView(R.layout.plane_ticket);
         mDatabase = FirebaseDatabase.getInstance();
-        mRefe = mDatabase.getReference("Car_Rental");
+        mRefe = mDatabase.getReference("car_booking");
         mRefe2 = mDatabase.getReference("History");
+        userModel = Prefrences.getUser(getApplicationContext());
 
         mProgressDialog = new ProgressDialog(CarRentalActivity.this);
         Gson gson = new Gson();
@@ -75,6 +81,10 @@ public class CarRentalActivity extends AppCompatActivity {
         business=findViewById(R.id.business);
         bookNow=findViewById(R.id.bookNow);
         date=findViewById(R.id.date);
+       userName = findViewById(R.id.userName);
+       userPhone = findViewById(R.id.userPhone);
+       userName.setText(Prefrences.getUser(getApplicationContext()).getName());
+       userPhone.setText(Prefrences.getUser(getApplicationContext()).getPhone());
 
     }
 
@@ -102,18 +112,13 @@ public class CarRentalActivity extends AppCompatActivity {
                 }else {
                     mProgressDialog.setMessage("Make Booking");
                     mProgressDialog.show();
-                    booking = new Booking("Renting", carRentalModel.getArrival(), carRentalModel.getDestination(), date.getText().toString(), "pending");
-                    mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    booking = new BookingHotel(carRentalModel.getEmail(),"Renting", carRentalModel.getArrival(), carRentalModel.getDestination(), date.getText().toString(), "pending", userName.getText().toString(), userPhone.getText().toString(), "", "");
+                    mRefe.child(carRentalModel.getEmail()).child(mRefe.push().getKey())
                             .setValue(booking).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                mRefe.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(carRentalModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            String key = mRefe2.push().getKey();
+
                                             histotyModel = new HistotyModel("Car/ Bus Ticket", carRentalModel.getArrival(), "Pending",date.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".", ""));
                                             mRefe2.child(mRefe2.push().getKey())
                                                     .setValue(histotyModel).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -131,12 +136,7 @@ public class CarRentalActivity extends AppCompatActivity {
                                             });
 
 
-                                        } else {
-                                            Toast.makeText(CarRentalActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
-                                            mProgressDialog.hide();
-                                        }
-                                    }
-                                });
+
 
 
                             } else {
@@ -157,7 +157,6 @@ public class CarRentalActivity extends AppCompatActivity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog = new DatePickerDialog(CarRentalActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
 
@@ -184,6 +183,7 @@ public class CarRentalActivity extends AppCompatActivity {
                         date.setText(""+ Commons.SimpleGMTTimeFormat(calendar.getTime().toString()));
                     }
                 }, mYear, mMonth, mDay);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
 
 

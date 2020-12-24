@@ -56,10 +56,10 @@ public class FragmentHomeNew extends Fragment implements CardViewOptionsAdapter.
                         getResources().getDrawable(R.drawable.car_enw),
                         "Rents"));
 
-        cardEntities.add(
-                new CardItemEntity(
-                        getResources().getDrawable(R.drawable.shop),
-                        "Gifts"));
+//        cardEntities.add(
+//                new CardItemEntity(
+//                        getResources().getDrawable(R.drawable.shop),
+//                        "Gifts"));
 
         cardEntities.add(
                 new CardItemEntity(
@@ -93,9 +93,6 @@ public class FragmentHomeNew extends Fragment implements CardViewOptionsAdapter.
                 break;
 
             case 3:
-                break;
-
-            case 4:
                 FragmentCulture fragment4;
                 fragment4 = new FragmentCulture();
                 fragmentManager.beginTransaction().add(R.id.inc, fragment4).addToBackStack(fragment4.getTag()).commit();

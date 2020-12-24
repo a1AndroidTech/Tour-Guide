@@ -89,13 +89,17 @@ public void initV(){
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                HotelModel uni_model=snapshot.getValue(HotelModel.class);
+
 //                officers.setUid(snapshot.getKey());
-                list.add(uni_model);
-                adapter= new HotelingAdapter(getActivity(), list);
-                listView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-                mProgressDialog.hide();
+                for(DataSnapshot postSnapShot: snapshot.getChildren()){
+                    HotelModel uni_model=postSnapShot.getValue(HotelModel.class);
+                    list.add(uni_model);
+                    adapter= new HotelingAdapter(getActivity(), list);
+                    listView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                    mProgressDialog.hide();
+                }
+
 
             }
 

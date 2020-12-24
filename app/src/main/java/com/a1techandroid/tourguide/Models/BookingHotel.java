@@ -1,6 +1,6 @@
 package com.a1techandroid.tourguide.Models;
 
-public class Booking {
+public class BookingHotel {
     String email;
     String type;
     String name;
@@ -8,9 +8,16 @@ public class Booking {
     String date;
     String status;
     String userName;
+    String userPhone;
+    String numOFRooms;
+    String familyType;
+
+    public BookingHotel(){
+
+    }
 
 
-    public Booking(String email,String type, String name, String location, String date, String status, String userName) {
+    public BookingHotel(String email, String type, String name, String location, String date, String status, String userName, String userPhone, String numOFRooms, String familyType) {
         this.email = email;
         this.type = type;
         this.name = name;
@@ -18,12 +25,10 @@ public class Booking {
         this.date = date;
         this.status = status;
         this.userName = userName;
+        this.userPhone = userPhone;
+        this.numOFRooms = numOFRooms;
+        this.familyType = familyType;
     }
-
-    public Booking(){
-
-    }
-
 
     public String getType() {
         return type;
@@ -71,6 +76,30 @@ public class Booking {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public String getNumOFRooms() {
+        return numOFRooms;
+    }
+
+    public void setNumOFRooms(String numOFRooms) {
+        this.numOFRooms = numOFRooms;
+    }
+
+    public String getFamilyType() {
+        return familyType;
+    }
+
+    public void setFamilyType(String familyType) {
+        this.familyType = familyType;
     }
 
     public String getEmail() {

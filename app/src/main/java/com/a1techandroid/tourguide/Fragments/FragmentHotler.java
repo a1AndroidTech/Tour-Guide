@@ -23,11 +23,13 @@ import com.a1techandroid.tourguide.Adapter.BookingAdaptere;
 import com.a1techandroid.tourguide.Adapter.HotelingAdapter;
 import com.a1techandroid.tourguide.CustomClasses.Prefrences;
 import com.a1techandroid.tourguide.Models.Booking;
+import com.a1techandroid.tourguide.Models.BookingHotel;
 import com.a1techandroid.tourguide.Models.HotelModel;
 import com.a1techandroid.tourguide.Models.UserModel;
 import com.a1techandroid.tourguide.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,7 +49,7 @@ import java.util.Map;
 public class FragmentHotler extends Fragment {
     ListView listView;
     BookingAdaptere adapter;
-    ArrayList<Booking> list = new ArrayList<>();
+    ArrayList<BookingHotel> list = new ArrayList<>();
     DatabaseReference reference;
     DatabaseReference reference1;
     DatabaseReference reference2;
@@ -57,6 +59,7 @@ public class FragmentHotler extends Fragment {
     UserModel userModel;
     Dialog dialog;
     TextView centerTExt;
+    FloatingActionButton add;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,11 +72,11 @@ public class FragmentHotler extends Fragment {
         mProgressDialog = new ProgressDialog(getActivity());
         userModel = Prefrences.getUser(getActivity());
 
-        if (userModel.getProfileStatus().equals("pending")){
-            resetPasswordDialog();
-        }else {
+//        if (userModel.getProfileStatus().equals("pending")){
+//            resetPasswordDialog();
+//        }else {
             readValueFromFireBase();
-        }
+//        }
 
         initViews(view);
 //        initV();
@@ -88,6 +91,14 @@ public class FragmentHotler extends Fragment {
     public void initViews(View view) {
         listView = view.findViewById(R.id.listView);
         centerTExt = view.findViewById(R.id.centerTExt);
+        add = view.findViewById(R.id.add);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetPasswordDialog();
+            }
+        });
     }
 
     public void initV() {
@@ -122,18 +133,22 @@ public class FragmentHotler extends Fragment {
         reference2.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".","")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Booking uni_model = snapshot.getValue(Booking.class);
+                list = new ArrayList<>();
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
+                    BookingHotel uni_model = snapshot1.getValue(BookingHotel.class);
 //                officers.setUid(snapshot.getKey());
-                if (uni_model != null){
-                    list.add(uni_model);
-                    adapter = new BookingAdaptere(getActivity(), list);
-                    listView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                    mProgressDialog.hide();
-                }else {
-                    centerTExt.setVisibility(View.VISIBLE);
-                    centerTExt.setText("Not Any Booking Yet!");
-                    mProgressDialog.hide();
+                    if (uni_model != null){
+
+                        list.add(uni_model);
+                        adapter = new BookingAdaptere(getActivity(), list);
+                        listView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        mProgressDialog.hide();
+                    }else {
+                        centerTExt.setVisibility(View.VISIBLE);
+                        centerTExt.setText("Not Any Booking Yet!");
+                        mProgressDialog.hide();
+                    }
                 }
 
             }
@@ -143,16 +158,26 @@ public class FragmentHotler extends Fragment {
 
             }
         });
-//        reference.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".","")).addChildEventListener(new ChildEventListener() {
+//        reference2.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".","")).addChildEventListener(new ChildEventListener() {
 //            @Override
 //            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                HotelModel uni_model = snapshot.getValue(HotelModel.class);
+//
+//                for(DataSnapshot postSnapShot: snapshot.getChildren()){
+//                    Booking uni_model = postSnapShot.getValue(Booking.class);
 ////                officers.setUid(snapshot.getKey());
-//                list.add(uni_model);
-//                adapter = new HotelingAdapter(getActivity(), list);
-//                listView.setAdapter(adapter);
-//                adapter.notifyDataSetChanged();
-//                mProgressDialog.hide();
+//                    if (uni_model != null){
+//                        list.add(uni_model);
+//                        adapter = new BookingAdaptere(getActivity(), list);
+//                        listView.setAdapter(adapter);
+//                        adapter.notifyDataSetChanged();
+//                        mProgressDialog.hide();
+//                    }else {
+//                        centerTExt.setVisibility(View.VISIBLE);
+//                        centerTExt.setText("Not Any Booking Yet!");
+//                        mProgressDialog.hide();
+//                    }
+//                }
+//
 //
 //            }
 //
@@ -164,13 +189,21 @@ public class FragmentHotler extends Fragment {
 //
 //            @Override
 //            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//                HotelModel officers = snapshot.getValue(HotelModel.class);
+//                for (DataSnapshot snapshot1: snapshot.getChildren()){
+//                    Booking uni_model = snapshot1.getValue(Booking.class);
 ////                officers.setUid(snapshot.getKey());
-//                list.remove(officers);
-//                adapter = new HotelingAdapter(getActivity(), list);
-//                listView.setAdapter(adapter);
-//                adapter.notifyDataSetChanged();
-//                mProgressDialog.hide();
+//                    if (uni_model != null){
+//                        list.remove(uni_model);
+//                        adapter = new BookingAdaptere(getActivity(), list);
+//                        listView.setAdapter(adapter);
+//                        adapter.notifyDataSetChanged();
+//                        mProgressDialog.hide();
+//                    }else {
+//                        centerTExt.setVisibility(View.VISIBLE);
+//                        centerTExt.setText("Not Any Booking Yet!");
+//                        mProgressDialog.hide();
+//                    }
+//                }
 //
 //            }
 //
@@ -207,13 +240,14 @@ public class FragmentHotler extends Fragment {
                         .getCredential(editText.getText().toString(), editText2.getText().toString());
                 String key = reference.push().getKey();
                 HotelModel hotelModel1 = new HotelModel(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",""),editText.getText().toString(), editText2.getText().toString(), editText3.getText().toString(), 0);
-                reference.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",""))
+                reference.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".","")).child(reference.push().getKey())
                         .setValue(hotelModel1).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if (task.isSuccessful()) {
-                            updateProfileStatus();
+//                            updateProfileStatus();
+                            dialog.dismiss();
                         } else {
                             Toast.makeText(getActivity(), "something went wrong", Toast.LENGTH_SHORT).show();
                         }

@@ -94,13 +94,16 @@ public class FragmentAirPlane extends Fragment {
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                PlaneModel uni_model=snapshot.getValue(PlaneModel.class);
+
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    PlaneModel uni_model = snapshot1.getValue(PlaneModel.class);
 //                officers.setUid(snapshot.getKey());
-                list.add(uni_model);
-                planeAdapter = new PlaneAdapter(getActivity(), list);
-                listView.setAdapter(planeAdapter);
-                planeAdapter.notifyDataSetChanged();
-                mProgressDialog.hide();
+                    list.add(uni_model);
+                    planeAdapter = new PlaneAdapter(getActivity(), list);
+                    listView.setAdapter(planeAdapter);
+                    planeAdapter.notifyDataSetChanged();
+                    mProgressDialog.hide();
+                }
             }
 
             @Override

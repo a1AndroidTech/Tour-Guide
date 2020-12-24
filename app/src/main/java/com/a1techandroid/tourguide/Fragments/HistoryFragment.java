@@ -14,9 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.a1techandroid.tourguide.Adapter.HistoryAdapter;
+import com.a1techandroid.tourguide.Adapter.HistoryAdapterNew;
 import com.a1techandroid.tourguide.Adapter.HotelingAdapter;
+import com.a1techandroid.tourguide.CustomClasses.Prefrences;
 import com.a1techandroid.tourguide.Models.HistotyModel;
 import com.a1techandroid.tourguide.Models.HotelModel;
+import com.a1techandroid.tourguide.Models.UserModel;
 import com.a1techandroid.tourguide.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -31,12 +34,14 @@ import java.util.ArrayList;
 public class HistoryFragment extends Fragment {
     ListView listView;
     HistoryAdapter adapter;
+    HistoryAdapterNew historyAdapterNew;
     ArrayList<HistotyModel> list=new ArrayList<>();
     DatabaseReference reference;
     FirebaseDatabase rootNode;
     HistotyModel hotelModel;
     private ProgressDialog mProgressDialog;
     TextView noHistoryText;
+    UserModel userModel;
 
     public static HistoryFragment newInstance() {
         HistoryFragment fragment = new HistoryFragment();
@@ -49,6 +54,7 @@ public class HistoryFragment extends Fragment {
         rootNode=FirebaseDatabase.getInstance();
         reference=rootNode.getReference("History");
         mProgressDialog= new ProgressDialog(getActivity());
+        userModel = Prefrences.getUser(getActivity());
         initViews(view);
         readValueFromFireBase();
         return view;
@@ -75,9 +81,16 @@ public class HistoryFragment extends Fragment {
                     HistotyModel uni_model=datas.getValue(HistotyModel.class);
 //                officers.setUid(snapshot.getKey());
                 list.add(uni_model);
-                adapter= new HistoryAdapter(getActivity(), list);
-                listView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                if (userModel.getUserType().equals("1")){
+                    adapter= new HistoryAdapter(getActivity(), list);
+                    listView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }else {
+                    historyAdapterNew= new HistoryAdapterNew(getActivity(), list);
+                    listView.setAdapter(historyAdapterNew);
+                    historyAdapterNew.notifyDataSetChanged();
+                }
+
                 mProgressDialog.hide();
                 }
                 if (list.size() == 0){

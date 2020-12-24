@@ -9,11 +9,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.a1techandroid.tourguide.GiftActivity;
 import com.a1techandroid.tourguide.Models.GiftModel;
 import com.a1techandroid.tourguide.Models.UserModel;
 import com.a1techandroid.tourguide.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -45,7 +52,7 @@ public class UserAdapter extends BaseAdapter {
 
     class ViewHolder{
         TextView userName, userType, userLocation;
-
+        ImageView delete;
     }
 
     @Override
@@ -58,6 +65,7 @@ public class UserAdapter extends BaseAdapter {
             holder.userName = convertView.findViewById(R.id.userName);
             holder.userType = convertView.findViewById(R.id.type);
             holder.userLocation = convertView.findViewById(R.id.loc);
+            holder.delete = convertView.findViewById(R.id.delete);
 
             convertView.setTag(holder);
         }else {
@@ -81,6 +89,32 @@ public class UserAdapter extends BaseAdapter {
 
         }
         holder.userLocation.setText(name.getCity());
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                Query applesQuery = ref.child("Users").orderByChild("email").equalTo(name.getEmail());
+
+                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                            appleSnapshot.getRef().removeValue();
+
+//                            ordersLists.remove(order);
+                            Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+//                            notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
 //        convertView.setOnClickListener(new View.OnClickListener() {
 //            @Override
