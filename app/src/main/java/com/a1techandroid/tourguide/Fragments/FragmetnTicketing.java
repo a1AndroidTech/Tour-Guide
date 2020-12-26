@@ -111,6 +111,7 @@ public class FragmetnTicketing extends Fragment {
         final EditText editText2 = (EditText) dialog.findViewById(R.id.loc);
         final EditText editText3 = (EditText) dialog.findViewById(R.id.star);
         final EditText editText4 = (EditText) dialog.findViewById(R.id.price);
+        final EditText editText5 = (EditText) dialog.findViewById(R.id.phone);
         Button btnSave = (Button) dialog.findViewById(R.id.update);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +120,7 @@ public class FragmetnTicketing extends Fragment {
                 AuthCredential credential = EmailAuthProvider
                         .getCredential(editText.getText().toString(), editText2.getText().toString());
                 String key = reference.push().getKey();
-                CarRentalModel hotelModel1 = new CarRentalModel(editText.getText().toString(), editText2.getText().toString(), editText3.getText().toString(), editText4.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".", ""));
+                CarRentalModel hotelModel1 = new CarRentalModel(editText.getText().toString(), editText2.getText().toString(), editText3.getText().toString(), editText4.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".", ""), editText5.getText().toString());
                 reference.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".", "")).child(reference.push().getKey())
                         .setValue(hotelModel1).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

@@ -2,18 +2,19 @@ package com.a1techandroid.tourguide.Models;
 
 public class CarRentalModel {
 
-    String arrival, destination, eco, gold, email;
+    String arrival, destination, eco, gold, email, phone;
 
     public CarRentalModel(){
 
     }
 
-    public CarRentalModel(String arrival, String destination, String eco, String gold, String email) {
+    public CarRentalModel(String arrival, String destination, String eco, String gold, String email, String phone) {
         this.arrival = arrival;
         this.destination = destination;
         this.eco = eco;
         this.gold = gold;
         this.email = email;
+        this.phone = phone;
     }
 
 
@@ -55,5 +56,13 @@ public class CarRentalModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

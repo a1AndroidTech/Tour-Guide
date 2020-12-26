@@ -22,6 +22,7 @@ import com.a1techandroid.tourguide.Models.Booking;
 import com.a1techandroid.tourguide.Models.BookingHotel;
 import com.a1techandroid.tourguide.Models.CarRentalModel;
 import com.a1techandroid.tourguide.Models.HistotyModel;
+import com.a1techandroid.tourguide.Models.NotificationModel;
 import com.a1techandroid.tourguide.Models.PlaneModel;
 import com.a1techandroid.tourguide.Models.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,6 +42,7 @@ public class CarRentalActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRefe;
     private DatabaseReference mRefe2;
+    private DatabaseReference mRefe3;
     private ProgressDialog mProgressDialog;
     HistotyModel histotyModel;
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -64,6 +66,8 @@ public class CarRentalActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mRefe = mDatabase.getReference("car_booking");
         mRefe2 = mDatabase.getReference("History");
+        mRefe3 = mDatabase.getReference("Notification");
+
         userModel = Prefrences.getUser(getApplicationContext());
 
         mProgressDialog = new ProgressDialog(CarRentalActivity.this);
@@ -126,7 +130,11 @@ public class CarRentalActivity extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
 
                                                     if (task.isSuccessful()) {
+                                                        NotificationModel notificationModel = new NotificationModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), "pending", "Car");
+                                                        mRefe3.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(notificationModel);
+
                                                         Toast.makeText(CarRentalActivity.this, "Booking Request Submtted", Toast.LENGTH_SHORT).show();
+                                                        Commons.testMessage(getApplicationContext(), Prefrences.getUser(getApplicationContext()).getName()+" Your Car Booking Request Submitted");
                                                         finish();
                                                         mProgressDialog.hide();
                                                     } else {

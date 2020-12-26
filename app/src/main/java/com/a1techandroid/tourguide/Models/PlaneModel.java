@@ -2,18 +2,19 @@ package com.a1techandroid.tourguide.Models;
 
 public class PlaneModel {
 
-    String arrival, destination, eco, gold, email;
+    String arrival, destination, eco, gold, email, phone;
 
     public PlaneModel(){
 
     }
 
-    public PlaneModel(String arrival, String destination, String eco, String gold, String email1) {
+    public PlaneModel(String arrival, String destination, String eco, String gold, String email1, String phone) {
         this.arrival = arrival;
         this.destination = destination;
         this.eco = eco;
         this.gold = gold;
         this.email = email1;
+        this.phone = phone;
     }
 
     public String getArrival() {
@@ -54,5 +55,13 @@ public class PlaneModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

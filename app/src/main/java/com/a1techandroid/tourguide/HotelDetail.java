@@ -22,6 +22,7 @@ import com.a1techandroid.tourguide.Models.BookingHotel;
 import com.a1techandroid.tourguide.Models.GiftModel;
 import com.a1techandroid.tourguide.Models.HistotyModel;
 import com.a1techandroid.tourguide.Models.HotelModel;
+import com.a1techandroid.tourguide.Models.NotificationModel;
 import com.a1techandroid.tourguide.Models.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,6 +41,7 @@ public class HotelDetail extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRefe;
     private DatabaseReference mRefe2;
+    private DatabaseReference mRefe3;
     private ProgressDialog mProgressDialog;
     HistotyModel histotyModel;
     BookingHotel booking;
@@ -65,6 +67,7 @@ public class HotelDetail extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mRefe = mDatabase.getReference("hotel_booking");
         mRefe2 = mDatabase.getReference("History");
+        mRefe3 = mDatabase.getReference("Notification");
         mProgressDialog = new ProgressDialog(this);
         userModel= Prefrences.getUser(HotelDetail.this);
 
@@ -131,7 +134,11 @@ public class HotelDetail extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
 
                                         if (task.isSuccessful()) {
+                                            NotificationModel notificationModel = new NotificationModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), "pending", "Hotel");
+                                            mRefe3.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(notificationModel);
                                             Toast.makeText(HotelDetail.this, "Booking Request Submtted", Toast.LENGTH_SHORT).show();
+                                            Commons.testMessage(getApplicationContext(), Prefrences.getUser(getApplicationContext()).getName()+" Your Hotel Booking Request Submitted");
+
                                             finish();
                                             mProgressDialog.hide();
                                         } else {

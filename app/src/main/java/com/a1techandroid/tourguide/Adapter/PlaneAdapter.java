@@ -44,7 +44,7 @@ public class PlaneAdapter extends BaseAdapter {
 
 
     class ViewHolder{
-        TextView arrival, destination, economy, gold;
+        TextView arrival, destination, economy, gold, phone;
     }
 
     @Override
@@ -58,6 +58,7 @@ public class PlaneAdapter extends BaseAdapter {
             holder.destination = convertView.findViewById(R.id.dep);
             holder.economy = convertView.findViewById(R.id.premium);
             holder.gold = convertView.findViewById(R.id.goldClass);
+            holder.phone = convertView.findViewById(R.id.phone);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
@@ -67,6 +68,7 @@ public class PlaneAdapter extends BaseAdapter {
         holder.destination.setText(name.getDestination());
         holder.economy.setText(name.getEco());
         holder.gold.setText(name.getGold());
+        holder.phone.setText(name.getPhone());
 
 
         convertView.setOnClickListener(new View.OnClickListener() {

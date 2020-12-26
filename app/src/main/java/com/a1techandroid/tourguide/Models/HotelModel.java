@@ -1,7 +1,7 @@
 package com.a1techandroid.tourguide.Models;
 
 public class HotelModel {
-    String arrival, destination, eco, email;
+    String arrival, destination, eco, email, phone;
     int rating;
 
 
@@ -9,12 +9,21 @@ public class HotelModel {
 
     }
 
-    public HotelModel(String email, String arrival, String destination, String eco, int rating) {
+    public HotelModel(String email, String arrival, String destination, String eco, int rating, String phone) {
         this.arrival = arrival;
         this.destination = destination;
         this.eco = eco;
         this.rating = rating;
         this.email = email;
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getArrival() {

@@ -17,6 +17,7 @@ import com.a1techandroid.tourguide.CustomClasses.Prefrences;
 import com.a1techandroid.tourguide.Models.Booking;
 import com.a1techandroid.tourguide.Models.BookingHotel;
 import com.a1techandroid.tourguide.Models.HistotyModel;
+import com.a1techandroid.tourguide.Models.NotificationModel;
 import com.a1techandroid.tourguide.Models.UserModel;
 import com.a1techandroid.tourguide.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -115,6 +116,7 @@ public class BookingAdaptere extends BaseAdapter {
             public void onClick(View v) {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                 Query applesQuery = null;
+                Query query = ref.child("Notification");
                 if (userModel.getUserType().equals("2")){
                     applesQuery = ref.child("hotel_booking").child(name.getEmail().replace(".",""));
 
@@ -165,6 +167,21 @@ public class BookingAdaptere extends BaseAdapter {
 
                             mRefe2.child(mRefe2.push().getKey()).setValue(histotyModel);
                             Toast.makeText(context, "Accepted", Toast.LENGTH_SHORT).show();
+                            query.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    NotificationModel model1 = snapshot.getValue(NotificationModel.class);
+
+                                    HashMap<String, Object> map = new HashMap<>();
+                                    map.put("status", "Approved");
+                                    ref.child("Notification").updateChildren(map);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
                         }
                     }
 

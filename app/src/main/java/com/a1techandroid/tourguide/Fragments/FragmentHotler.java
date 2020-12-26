@@ -231,6 +231,8 @@ public class FragmentHotler extends Fragment {
         final EditText editText = (EditText) dialog.findViewById(R.id.name);
         final EditText editText2 = (EditText) dialog.findViewById(R.id.loc);
         final EditText editText3 = (EditText) dialog.findViewById(R.id.star);
+        final EditText editText4 = (EditText) dialog.findViewById(R.id.rating);
+        final EditText editText5 = (EditText) dialog.findViewById(R.id.phone);
         Button btnSave  = (Button) dialog.findViewById(R.id.update);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +241,7 @@ public class FragmentHotler extends Fragment {
                 AuthCredential credential = EmailAuthProvider
                         .getCredential(editText.getText().toString(), editText2.getText().toString());
                 String key = reference.push().getKey();
-                HotelModel hotelModel1 = new HotelModel(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",""),editText.getText().toString(), editText2.getText().toString(), editText3.getText().toString(), 0);
+                HotelModel hotelModel1 = new HotelModel(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",""),editText.getText().toString(), editText2.getText().toString(), editText3.getText().toString(), Integer.parseInt(editText4.getText().toString()), editText5.getText().toString());
                 reference.child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".","")).child(reference.push().getKey())
                         .setValue(hotelModel1).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

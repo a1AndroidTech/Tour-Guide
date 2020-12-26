@@ -20,6 +20,7 @@ import com.a1techandroid.tourguide.CustomClasses.Prefrences;
 import com.a1techandroid.tourguide.Models.Booking;
 import com.a1techandroid.tourguide.Models.BookingHotel;
 import com.a1techandroid.tourguide.Models.HistotyModel;
+import com.a1techandroid.tourguide.Models.NotificationModel;
 import com.a1techandroid.tourguide.Models.PlaneModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,7 +37,7 @@ public class PlaneDetailActivity extends AppCompatActivity {
     CardView bookNow;
     PlaneModel planeModel;
     private FirebaseDatabase mDatabase;
-    private DatabaseReference mRefe, mRefe2;
+    private DatabaseReference mRefe, mRefe2, mRefe3;
     private ProgressDialog mProgressDialog;
     HistotyModel histotyModel;
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -60,6 +61,8 @@ public class PlaneDetailActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mRefe = mDatabase.getReference("ticket_booking");
         mRefe2 = mDatabase.getReference("History");
+        mRefe3 = mDatabase.getReference("Notification");
+
 
         mProgressDialog = new ProgressDialog(this);
         Gson gson = new Gson();
@@ -119,7 +122,12 @@ public class PlaneDetailActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if (task.isSuccessful()) {
+                                        NotificationModel notificationModel = new NotificationModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), "pending", "Plane");
+                                        mRefe3.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(notificationModel);
+
                                         Toast.makeText(PlaneDetailActivity.this, "Booking Request Submtted", Toast.LENGTH_SHORT).show();
+                                        Commons.testMessage(getApplicationContext(), Prefrences.getUser(getApplicationContext()).getName() + " Your Ticket Booking Request Submitted");
+
                                         finish();
                                         mProgressDialog.hide();
                                     } else {
