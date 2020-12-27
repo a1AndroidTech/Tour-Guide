@@ -175,24 +175,24 @@ public class LoginActivityNew extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         UserModel userModel = snapshot.getValue(UserModel.class);
-                                        Prefrences.saveUSer(userModel, getApplicationContext());
+                                        Prefrences.saveUSer(userModel, LoginActivityNew.this);
                                         Intent intent = new Intent(LoginActivityNew.this, MainNewActivity.class);
-                                        mRefe3.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                NotificationModel model = snapshot.getValue(NotificationModel.class);
-                                                if (model.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
-                                                    if (model.getStatus().equals("Approved")){
-                                                        Commons.testMessage(getApplicationContext(), Prefrences.getUser(getApplicationContext()).getName()+" Your "+ model.getType() +"Booking Request Submitted");
-                                                    }
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+//                                        mRefe3.addValueEventListener(new ValueEventListener() {
+//                                            @Override
+//                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                                NotificationModel model = snapshot.getValue(NotificationModel.class);
+//                                                if (model.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+//                                                    if (model.getStatus().equals("Approved")){
+//                                                        Commons.testMessage(getApplicationContext(), Prefrences.getUser(getApplicationContext()).getName()+" Your "+ model.getType() +"Booking Request Submitted");
+//                                                    }
+//                                                }
+//                                            }
+//
+//                                            @Override
+//                                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                            }
+//                                        });
                                         startActivity(intent);
                                         finish();
                                     }

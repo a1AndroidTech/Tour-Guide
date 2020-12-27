@@ -130,8 +130,8 @@ public class CarRentalActivity extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
 
                                                     if (task.isSuccessful()) {
-                                                        NotificationModel notificationModel = new NotificationModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), "pending", "Car");
-                                                        mRefe3.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(notificationModel);
+                                                        NotificationModel notificationModel = new NotificationModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), "pending", "Car", carRentalModel.getEmail());
+                                                        mRefe3.child(mRefe3.push().getKey()).setValue(notificationModel);
 
                                                         Toast.makeText(CarRentalActivity.this, "Booking Request Submtted", Toast.LENGTH_SHORT).show();
                                                         Commons.testMessage(getApplicationContext(), Prefrences.getUser(getApplicationContext()).getName()+" Your Car Booking Request Submitted");

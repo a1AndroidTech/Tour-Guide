@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
                     android:gravity="start"
-                    android:text="Bak to Signin!"
+                    android:text="Back to Signin!"
                     android:visibility="visible"
                     android:textAlignment="center"
                     android:textColor="@color/white"

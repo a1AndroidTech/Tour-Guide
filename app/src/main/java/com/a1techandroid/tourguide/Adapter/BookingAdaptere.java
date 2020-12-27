@@ -167,14 +167,14 @@ public class BookingAdaptere extends BaseAdapter {
 
                             mRefe2.child(mRefe2.push().getKey()).setValue(histotyModel);
                             Toast.makeText(context, "Accepted", Toast.LENGTH_SHORT).show();
-                            query.addValueEventListener(new ValueEventListener() {
+                            query.orderByChild("email").equalTo(name.getEmail()).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     NotificationModel model1 = snapshot.getValue(NotificationModel.class);
-
+                                    String key = snapshot.getKey();
                                     HashMap<String, Object> map = new HashMap<>();
                                     map.put("status", "Approved");
-                                    ref.child("Notification").updateChildren(map);
+                                    ref.child(key).updateChildren(map);
                                 }
 
                                 @Override

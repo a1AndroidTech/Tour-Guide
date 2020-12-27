@@ -134,9 +134,9 @@ public class HotelDetail extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
 
                                         if (task.isSuccessful()) {
-                                            NotificationModel notificationModel = new NotificationModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), "pending", "Hotel");
-                                            mRefe3.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(notificationModel);
-                                            Toast.makeText(HotelDetail.this, "Booking Request Submtted", Toast.LENGTH_SHORT).show();
+                                            NotificationModel notificationModel = new NotificationModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), "pending", "Hotel", carRentalModel.getEmail());
+                                            mRefe3.child(mRefe3.push().getKey()).setValue(notificationModel);
+                                            Toast.makeText(HotelDetail.this, "Booking Request Submitted", Toast.LENGTH_SHORT).show();
                                             Commons.testMessage(getApplicationContext(), Prefrences.getUser(getApplicationContext()).getName()+" Your Hotel Booking Request Submitted");
 
                                             finish();

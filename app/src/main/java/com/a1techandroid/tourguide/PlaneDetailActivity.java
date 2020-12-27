@@ -122,8 +122,8 @@ public class PlaneDetailActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if (task.isSuccessful()) {
-                                        NotificationModel notificationModel = new NotificationModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), "pending", "Plane");
-                                        mRefe3.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(notificationModel);
+                                        NotificationModel notificationModel = new NotificationModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), "pending", "Plane", planeModel.getEmail() );
+                                        mRefe3.child(mRefe3.push().getKey()).setValue(notificationModel);
 
                                         Toast.makeText(PlaneDetailActivity.this, "Booking Request Submtted", Toast.LENGTH_SHORT).show();
                                         Commons.testMessage(getApplicationContext(), Prefrences.getUser(getApplicationContext()).getName() + " Your Ticket Booking Request Submitted");

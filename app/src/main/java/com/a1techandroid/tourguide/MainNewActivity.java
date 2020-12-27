@@ -73,7 +73,7 @@ public class MainNewActivity extends AppCompatActivity implements NavigationView
         toolbar = findViewById(R.id.toolbar);
         mDrawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        userModel = Prefrences.getUser(getApplicationContext());
+        userModel = Prefrences.getUser(MainNewActivity.this);
 
         setSupportActionBar(toolbar);
 
